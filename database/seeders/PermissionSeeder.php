@@ -778,6 +778,11 @@ class PermissionSeeder extends Seeder
             ['name' => 'student-category-create', 'group' => 'Student Category', 'title' => 'Create'],
             ['name' => 'student-category-edit', 'group' => 'Student Category', 'title' => 'Edit'],
             ['name' => 'student-category-delete', 'group' => 'Student Category', 'title' => 'Delete'],
+
+            ['name' => 'religion-view', 'group' => 'Religion', 'title' => 'View'],
+            ['name' => 'religion-create', 'group' => 'Religion', 'title' => 'Create'],
+            ['name' => 'religion-edit', 'group' => 'Religion', 'title' => 'Edit'],
+            ['name' => 'religion-delete', 'group' => 'Religion', 'title' => 'Delete'],
             //*** Setting Modules ***//
         ];
 

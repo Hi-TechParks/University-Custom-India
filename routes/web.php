@@ -186,6 +186,7 @@ Route::middleware(['auth:web', 'XSS', 'license'])->name('admin.')->namespace('Ad
     Route::resource('student/course-complete', 'CourseCompleteController');
     Route::resource('student/student-alumni', 'StudentAlumniController');
     Route::resource('student/student-category', 'StudentCategoryController');
+    Route::resource('religion', 'ReligionController');
 
 
 
