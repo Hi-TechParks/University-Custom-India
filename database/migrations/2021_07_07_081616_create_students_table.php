@@ -49,8 +49,9 @@ class CreateStudentsTable extends Migration
             $table->date('dob');
             $table->string('phone')->nullable();
             $table->string('emergency_phone')->nullable();
-            
-            $table->string('religion')->nullable();
+
+            $table->integer('religion_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->string('caste')->nullable();
             $table->string('mother_tongue')->nullable();
             $table->tinyInteger('marital_status')->nullable();
@@ -73,7 +74,7 @@ class CreateStudentsTable extends Migration
             $table->string('collage_graduation_point')->nullable();
             $table->string('collage_transcript')->nullable();
             $table->string('collage_certificate')->nullable();
-            
+
             $table->text('photo')->nullable();
             $table->text('signature')->nullable();
 

@@ -12,4 +12,9 @@ class Religion extends Model
         protected $fillable = [
         'title', 'slug', 'description', 'status',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'religion_id');
+    }
 }

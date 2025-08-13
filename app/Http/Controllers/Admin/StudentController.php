@@ -12,6 +12,7 @@ use Flasher\Laravel\Facade\Flasher;
 use Illuminate\Support\Facades\DB;
 use App\Imports\StudentsImport;
 use App\Models\StudentRelative;
+use App\Models\StudentCategory;
 use App\Models\IdCardSetting;
 use App\Models\StudentEnroll;
 use App\Models\EnrollSubject;
@@ -23,6 +24,7 @@ use App\Models\StatusType;
 use App\Models\Province;
 use App\Models\District;
 use App\Models\Semester;
+use App\Models\Religion;
 use App\Models\Document;
 use App\Models\Session;
 use App\Models\Program;
@@ -224,6 +226,8 @@ class StudentController extends Controller
         $data['batches'] = Batch::where('status', '1')->orderBy('id', 'desc')->get();
         $data['statuses'] = StatusType::where('status', '1')->orderBy('title', 'asc')->get();
         $data['provinces'] = Province::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
 
         return view($this->view.'.create', $data);
     }
@@ -293,7 +297,8 @@ class StudentController extends Controller
             $student->phone = $request->phone;
             $student->emergency_phone = $request->emergency_phone;
 
-            $student->religion = $request->religion;
+            $student->religion_id = $request->religion;
+            $student->category_id = $request->category;
             $student->caste = $request->caste;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
@@ -463,6 +468,8 @@ class StudentController extends Controller
                             ->orderBy('title', 'asc')->get();
         $data['statuses'] = StatusType::where('status', '1')->get();
         $data['batches'] = Batch::where('status', '1')->orderBy('id', 'desc')->get();
+        $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
 
         $data['row'] = $student;
 
@@ -525,7 +532,8 @@ class StudentController extends Controller
             $student->phone = $request->phone;
             $student->emergency_phone = $request->emergency_phone;
 
-            $student->religion = $request->religion;
+            $student->religion_id = $request->religion;
+            $student->category_id = $request->category;
             $student->caste = $request->caste;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;

@@ -150,7 +150,7 @@
                                     <p><mark class="text-primary">{{ __('field_mother_occupation') }}:</mark> {{ $row->mother_occupation }}</p><hr/>
                                     @endif
 
-                                    <p><mark class="text-primary">{{ __('field_gender') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_gender') }}:</mark>
                                         @if( $row->gender == 1 )
                                         {{ __('gender_male') }}
                                         @elseif( $row->gender == 2 )
@@ -160,7 +160,7 @@
                                         @endif
                                     </p><hr/>
 
-                                    <p><mark class="text-primary">{{ __('field_dob') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_dob') }}:</mark>
                                         @if(isset($setting->date_format))
                                         {{ date($setting->date_format, strtotime($row->dob)) }}
                                         @else
@@ -171,9 +171,8 @@
                                     @if(field('student_emergency_phone')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_emergency_phone') }}:</mark> {{ $row->emergency_phone }}</p><hr/>
                                     @endif
-                                    @if(field('student_religion')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_religion') }}:</mark> {{ $row->religion }}</p><hr/>
-                                    @endif
+                                    <p><mark class="text-primary">{{ __('field_religion') }}:</mark> {{ $row->religion->title ?? '' }}</p><hr/>
+                                    <p><mark class="text-primary">{{ __('field_student') }} {{ __('field_category') }}:</mark> {{ $row->category->title ?? '' }}</p><hr/>
                                     @if(field('student_caste')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_caste') }}:</mark> {{ $row->caste }}</p><hr/>
                                     @endif
@@ -185,7 +184,7 @@
                                     @endif
 
                                     @if(field('student_marital_status')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_marital_status') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_marital_status') }}:</mark>
                                         @if( $row->marital_status == 1 )
                                         {{ __('marital_status_single') }}
                                         @elseif( $row->marital_status == 2 )
@@ -201,7 +200,7 @@
                                     @endif
 
                                     @if(field('student_blood_group')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_blood_group') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_blood_group') }}:</mark>
                                         @if( $row->blood_group == 1 )
                                         {{ __('A+') }}
                                         @elseif( $row->blood_group == 2 )
@@ -336,7 +335,7 @@
                                                     $semester_credits = $semester_credits + $subject->credit_hour;
                                                     $subject_grade = null;
                                                 @endphp
-                                                
+
                                                 <tr>
                                                     <td>{{ $subject->code }}</td>
                                                     <td>
@@ -403,7 +402,7 @@
                                         <p><mark class="text-primary">{{ __('field_semester') }}:</mark> {{ $curr_enroll->semester->title ?? '' }}</p><hr/>
                                         <p><mark class="text-primary">{{ __('field_section') }}:</mark> {{ $curr_enroll->section->title ?? '' }}</p><hr/>
 
-                                        <p><mark class="text-primary">{{ __('field_status') }}:</mark> 
+                                        <p><mark class="text-primary">{{ __('field_status') }}:</mark>
                                         @foreach($row->statuses as $key => $status)
                                             <span class="badge badge-primary">{{ $status->title }}</span>
                                         @endforeach
@@ -420,7 +419,7 @@
                                         <p><mark class="text-primary">{{ __('field_graduation_point') }}:</mark> {{ $row->school_graduation_point }}</p><hr/>
                                         </fieldset>
                                         @endif
-                                        
+
                                         @if(field('student_collage_info')->status == 1)
                                         <fieldset class="row gx-2 scheduler-border">
                                         <legend>{{ __('field_college_information') }}</legend>
@@ -477,14 +476,14 @@
                                                 <td>{{ $row->category->title ?? '' }}</td>
                                                 <td>
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$row->fee_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$row->fee_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$row->fee_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$row->fee_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>
-                                                    @php 
+                                                    @php
                                                     $discount_amount = 0;
                                                     $today = date('Y-m-d');
                                                     @endphp
@@ -514,10 +513,10 @@
 
 
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$discount_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$discount_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$discount_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$discount_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>
@@ -525,10 +524,10 @@
                                                         $fine_amount = 0;
                                                     @endphp
                                                     @if(empty($row->pay_date) || $row->due_date < $row->pay_date)
-                                                        
+
                                                         @php
                                                         $due_date = strtotime($row->due_date);
-                                                        $today = strtotime(date('Y-m-d')); 
+                                                        $today = strtotime(date('Y-m-d'));
                                                         $days = (int)(($today - $due_date)/86400);
                                                         @endphp
 
@@ -553,10 +552,10 @@
 
 
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$fine_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$fine_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$fine_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$fine_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>
@@ -565,10 +564,10 @@
                                                     @endphp
 
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$net_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$net_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$net_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$net_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>
@@ -599,34 +598,34 @@
                                                 <td>{{ $row->category->title ?? '' }}</td>
                                                 <td>
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$row->fee_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$row->fee_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$row->fee_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$row->fee_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$row->discount_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$row->discount_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$row->discount_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$row->discount_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$row->fine_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$row->fine_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$row->fine_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$row->fine_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>
                                                     @if(isset($setting->decimal_place))
-                                                    {{ number_format((float)$row->paid_amount, $setting->decimal_place, '.', '') }} 
+                                                    {{ number_format((float)$row->paid_amount, $setting->decimal_place, '.', '') }}
                                                     @else
-                                                    {{ number_format((float)$row->paid_amount, 2, '.', '') }} 
-                                                    @endif 
+                                                    {{ number_format((float)$row->paid_amount, 2, '.', '') }}
+                                                    @endif
                                                     {!! $setting->currency_symbol !!}
                                                 </td>
                                                 <td>

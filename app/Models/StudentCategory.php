@@ -12,4 +12,9 @@ class StudentCategory extends Model
         protected $fillable = [
         'title', 'slug', 'description', 'status',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'category_id');
+    }
 }
