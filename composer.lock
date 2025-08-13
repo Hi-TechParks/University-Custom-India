@@ -3420,17 +3420,20 @@
         },
         {
             "name": "namshi/smscountry",
-            "version": "1.0.3",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/namshi/smscountry.git",
-                "reference": "ee29312f6c7529d3c2410366a92828478b1c1de0"
+                "reference": "f513533fd78f00bfb667003ef42afe38a76e723b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/namshi/smscountry/zipball/ee29312f6c7529d3c2410366a92828478b1c1de0",
-                "reference": "ee29312f6c7529d3c2410366a92828478b1c1de0",
+                "url": "https://api.github.com/repos/namshi/smscountry/zipball/f513533fd78f00bfb667003ef42afe38a76e723b",
+                "reference": "f513533fd78f00bfb667003ef42afe38a76e723b",
                 "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*"
             },
             "require-dev": {
                 "phpunit/phpunit": "3.7.21"
@@ -3438,7 +3441,8 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Namshi\\SMSCountry": "src/"
+                    "Namshi\\SMSCountry": "src/",
+                    "Namshi\\SMSCountry\\Tests": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3456,7 +3460,7 @@
                 "issues": "https://github.com/namshi/smscountry/issues",
                 "source": "https://github.com/namshi/smscountry/tree/master"
             },
-            "time": "2013-12-15T12:33:33+00:00"
+            "time": "2014-02-13T13:15:51+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -11038,12 +11042,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

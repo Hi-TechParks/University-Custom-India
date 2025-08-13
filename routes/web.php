@@ -185,6 +185,7 @@ Route::middleware(['auth:web', 'XSS', 'license'])->name('admin.')->namespace('Ad
     Route::resource('student/subject-adddrop', 'SubjectAddDropController');
     Route::resource('student/course-complete', 'CourseCompleteController');
     Route::resource('student/student-alumni', 'StudentAlumniController');
+    Route::resource('student/student-category', 'StudentCategoryController');
 
 
 

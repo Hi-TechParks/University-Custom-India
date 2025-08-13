@@ -773,6 +773,11 @@ class PermissionSeeder extends Seeder
             ['name' => 'profile-view', 'group' => 'My Profile', 'title' => 'View'],
             ['name' => 'profile-edit', 'group' => 'My Profile', 'title' => 'Edit'],
             ['name' => 'profile-account', 'group' => 'My Profile', 'title' => 'Account'],
+
+            ['name' => 'student-category-view', 'group' => 'Student Category', 'title' => 'View'],
+            ['name' => 'student-category-create', 'group' => 'Student Category', 'title' => 'Create'],
+            ['name' => 'student-category-edit', 'group' => 'Student Category', 'title' => 'Edit'],
+            ['name' => 'student-category-delete', 'group' => 'Student Category', 'title' => 'Delete'],
             //*** Setting Modules ***//
         ];
 

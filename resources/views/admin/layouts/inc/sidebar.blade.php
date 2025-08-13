@@ -9,7 +9,7 @@
             </a>
         </li>
 
-        @canany(['application-create', 'application-view', 'student-create', 'student-view', 'student-import', 'student-password-print', 'student-password-change', 'student-card', 'student-transfer-in-create', 'student-transfer-in-view', 'student-transfer-out-create', 'student-transfer-out-view', 'status-type-create', 'status-type-view', 'id-card-setting-view'])
+        @canany(['application-create', 'application-view', 'student-create', 'student-view', 'student-import', 'student-password-print', 'student-password-change', 'student-card', 'student-transfer-in-create', 'student-transfer-in-view', 'student-transfer-out-create', 'student-transfer-out-view', 'status-type-create', 'status-type-view', 'id-card-setting-view', 'student-category-create', 'student-category-view'])
         <li class="nav-item pcoded-hasmenu {{ Request::is('admin/admission*') ? 'pcoded-trigger active' : '' }}">
             <a href="#!" class="nav-link">
                 <span class="pcoded-micon"><i class="fas fa-university"></i></span>
@@ -66,6 +66,10 @@
                         @endcan
                     </ul>
                 </li>
+                @endcanany
+
+                @canany(['student-category-create', 'student-category-view'])
+                <li class="{{ Request::is('admin/admission/student-category*') ? 'active' : '' }}"><a href="{{ route('admin.student-category.index') }}" class="">{{ trans_choice('module_student_category', 2) }}</a></li>
                 @endcanany
             </ul>
         </li>
@@ -148,7 +152,7 @@
                 @canany(['faculty-create', 'faculty-view'])
                 <li class="{{ Request::is('admin/academic/faculty*') ? 'active' : '' }}"><a href="{{ route('admin.faculty.index') }}" class="">{{ trans_choice('module_faculty', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['program-create', 'program-view'])
                 <li class="{{ Request::is('admin/academic/program*') ? 'active' : '' }}"><a href="{{ route('admin.program.index') }}" class="">{{ trans_choice('module_program', 2) }}</a></li>
                 @endcanany
@@ -164,15 +168,15 @@
                 @canany(['semester-create', 'semester-view'])
                 <li class="{{ Request::is('admin/academic/semester*') ? 'active' : '' }}"><a href="{{ route('admin.semester.index') }}" class="">{{ trans_choice('module_semester', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['section-create', 'section-view'])
                 <li class="{{ Request::is('admin/academic/section*') ? 'active' : '' }}"><a href="{{ route('admin.section.index') }}" class="">{{ trans_choice('module_section', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['class-room-create', 'class-room-view'])
                 <li class="{{ Request::is('admin/academic/room*') ? 'active' : '' }}"><a href="{{ route('admin.room.index') }}" class="">{{ trans_choice('module_class_room', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['subject-create', 'subject-view'])
                 <li class="{{ Request::is('admin/academic/subject*') ? 'active' : '' }}"><a href="{{ route('admin.subject.index') }}" class="">{{ trans_choice('module_subject', 2) }}</a></li>
                 @endcanany
@@ -302,7 +306,7 @@
                 @canany(['assignment-create', 'assignment-view', 'assignment-marking'])
                 <li class="{{ Request::is('admin/download/assignment*') ? 'active' : '' }}"><a href="{{ route('admin.assignment.index') }}" class="">{{ trans_choice('module_assignment', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['content-create', 'content-view'])
                 <li class="{{ Request::is('admin/download/content*') ? 'active' : '' }}"><a href="{{ route('admin.content.index') }}" class="">{{ trans_choice('module_content', 1) }} {{ __('list') }}</a></li>
                 @endcanany
@@ -414,7 +418,7 @@
                 @canany(['designation-create', 'designation-view'])
                 <li class="{{ Request::is('admin/staff/designation*') ? 'active' : '' }}"><a href="{{ route('admin.designation.index') }}" class="">{{ trans_choice('module_designation', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['department-create', 'department-view'])
                 <li class="{{ Request::is('admin/staff/department*') ? 'active' : '' }}"><a href="{{ route('admin.department.index') }}" class="">{{ trans_choice('module_department', 2) }}</a></li>
                 @endcanany
@@ -502,19 +506,19 @@
                 @canany(['income-create', 'income-view'])
                 <li class="{{ Request::is('admin/account/income*') ? 'active' : '' }}"><a href="{{ route('admin.income.index') }}" class="">{{ trans_choice('module_income', 1) }} {{ __('list') }}</a></li>
                 @endcanany
-                
+
                 @canany(['income-category-create', 'income-category-view'])
                 <li class="{{ Request::is('admin/account/income-category*') ? 'active' : '' }}"><a href="{{ route('admin.income-category.index') }}" class="">{{ trans_choice('module_income_category', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['expense-create', 'expense-view'])
                 <li class="{{ Request::is('admin/account/expense*') ? 'active' : '' }}"><a href="{{ route('admin.expense.index') }}" class="">{{ trans_choice('module_expense', 1) }} {{ __('list') }}</a></li>
                 @endcanany
-                
+
                 @canany(['expense-category-create', 'expense-category-view'])
                 <li class="{{ Request::is('admin/account/expense-category*') ? 'active' : '' }}"><a href="{{ route('admin.expense-category.index') }}" class="">{{ trans_choice('module_expense_category', 2) }}</a></li>
                 @endcanany
-                
+
                 @can('outcome-view')
                 <li class="{{ Request::is('admin/account/outcome*') ? 'active' : '' }}"><a href="{{ route('admin.outcome.index') }}" class="">{{ trans_choice('module_outcome_calculation', 2) }}</a></li>
                 @endcan
@@ -540,15 +544,15 @@
                 @canany(['event-create', 'event-view'])
                 <li class="{{ Request::is('admin/communicate/event') ? 'active' : '' }}"><a href="{{ route('admin.event.index') }}" class="">{{ trans_choice('module_event', 2) }} {{ __('list') }}</a></li>
                 @endcanany
-                
+
                 @can('event-calendar')
                 <li class="{{ Request::is('admin/communicate/event-calendar') ? 'active' : '' }}"><a href="{{ route('admin.event.calendar') }}" class="">{{ trans_choice('module_calendar', 2) }}</a></li>
                 @endcan
-                
+
                 @canany(['notice-create', 'notice-view'])
                 <li class="{{ Request::is('admin/communicate/notice*') ? 'active' : '' }}"><a href="{{ route('admin.notice.index') }}" class="">{{ trans_choice('module_notice', 1) }} {{ __('list') }}</a></li>
                 @endcanany
-                
+
                 @canany('notice-category-create', 'notice-category-view')
                 <li class="{{ Request::is('admin/communicate/notice-category*') ? 'active' : '' }}"><a href="{{ route('admin.notice-category.index') }}" class="">{{ trans_choice('module_notice_category', 2) }}</a></li>
                 @endcanany
@@ -586,7 +590,7 @@
                     </ul>
                 </li>
                 @endcanany
-                
+
                 @canany(['book-create', 'book-view', 'book-print'])
                 <li class="{{ Request::is('admin/library/book-list*') ? 'active' : '' }}"><a href="{{ route('admin.book-list.index') }}" class="">{{ trans_choice('module_book', 1) }} {{ __('list') }}</a></li>
                 @endcanany
@@ -646,7 +650,7 @@
                 @canany(['item-supplier-create', 'item-supplier-view'])
                 <li class="{{ Request::is('admin/inventory/item-supplier*') ? 'active' : '' }}"><a href="{{ route('admin.item-supplier.index') }}" class="">{{ trans_choice('module_item_supplier', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['item-category-create', 'item-category-view'])
                 <li class="{{ Request::is('admin/inventory/item-category*') ? 'active' : '' }}"><a href="{{ route('admin.item-category.index') }}" class="">{{ trans_choice('module_item_category', 2) }}</a></li>
                 @endcanany
@@ -736,7 +740,7 @@
                 @canany(['phone-log-create', 'phone-log-view'])
                 <li class="{{ Request::is('admin/frontdesk/phone-log*') ? 'active' : '' }}"><a href="{{ route('admin.phone-log.index') }}" class="">{{ trans_choice('module_phone_log', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['enquiry-create', 'enquiry-view'])
                 <li class="{{ Request::is('admin/frontdesk/enquiry*') ? 'active' : '' }}"><a href="{{ route('admin.enquiry.index') }}" class="">{{ trans_choice('module_enquiry', 1) }} {{ __('list') }}</a></li>
                 @endcanany
@@ -808,7 +812,7 @@
                 @canany(['marksheet-view', 'marksheet-print', 'marksheet-download'])
                 <li class="{{ Request::is('admin/transcript/marksheet-semester*') ? 'active' : '' }}"><a href="{{ route('admin.marksheet.semester') }}" class="">{{ trans_choice('module_marksheet_semester', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['marksheet-view', 'marksheet-print', 'marksheet-download'])
                 <li class="{{ Request::is('admin/transcript/marksheet') ? 'active' : '' }}"><a href="{{ route('admin.marksheet.index') }}" class="">{{ trans_choice('module_marksheet_total', 2) }}</a></li>
                 @endcanany
@@ -978,11 +982,11 @@
                 @canany(['district-view', 'district-create'])
                 <li class="{{ Request::is('admin/setting/district*') ? 'active' : '' }}"><a href="{{ route('admin.district.index') }}" class="">{{ trans_choice('module_district', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['language-view', 'language-create'])
                 <li class="{{ Request::is('admin/setting/language*') ? 'active' : '' }}"><a href="{{ route('admin.language.index') }}" class="">{{ trans_choice('module_language', 2) }}</a></li>
                 @endcanany
-                
+
                 @canany(['translations-view', 'translations-create'])
                 <li class="{{ Request::is('admin/translations*') ? 'active' : '' }}"><a href="{{ route('admin.translations.index') }}" class="">{{ trans_choice('module_translate', 2) }}</a></li>
                 @endcanany
