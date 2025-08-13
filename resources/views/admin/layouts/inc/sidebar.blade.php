@@ -9,7 +9,7 @@
             </a>
         </li>
 
-        @canany(['application-create', 'application-view', 'student-create', 'student-view', 'student-import', 'student-password-print', 'student-password-change', 'student-card', 'student-transfer-in-create', 'student-transfer-in-view', 'student-transfer-out-create', 'student-transfer-out-view', 'status-type-create', 'status-type-view', 'id-card-setting-view', 'student-category-create', 'student-category-view', 'religion-create', 'religion-view'])
+        @canany(['application-create', 'application-view', 'student-create', 'student-view', 'student-import', 'student-password-print', 'student-password-change', 'student-card', 'student-transfer-in-create', 'student-transfer-in-view', 'student-transfer-out-create', 'student-transfer-out-view', 'status-type-create', 'status-type-view', 'id-card-setting-view', 'student-category-create', 'student-category-view'])
         <li class="nav-item pcoded-hasmenu {{ Request::is('admin/admission*') ? 'pcoded-trigger active' : '' }}">
             <a href="#!" class="nav-link">
                 <span class="pcoded-micon"><i class="fas fa-university"></i></span>
@@ -70,10 +70,6 @@
 
                 @canany(['student-category-create', 'student-category-view'])
                 <li class="{{ Request::is('admin/admission/student-category*') ? 'active' : '' }}"><a href="{{ route('admin.student-category.index') }}" class="">{{ trans_choice('module_student_category', 2) }}</a></li>
-                @endcanany
-
-                @canany(['religion-create', 'religion-view'])
-                <li class="{{ Request::is('admin/admission/religion*') ? 'active' : '' }}"><a href="{{ route('admin.religion.index') }}" class="">{{ trans_choice('module_religion', 2) }}</a></li>
                 @endcanany
             </ul>
         </li>
@@ -968,7 +964,7 @@
         </li>
         @endcanany
 
-        @canany(['setting-view', 'province-view', 'province-create', 'district-view', 'district-create', 'language-view', 'language-create', 'translations-view', 'translations-create', 'setting-mail', 'setting-sms', 'setting-payment', 'application-setting-view', 'schedule-setting-view', 'role-view', 'role-edit', 'field-staff', 'field-student', 'field-application', 'student-panel-view'])
+        @canany(['setting-view', 'province-view', 'province-create', 'district-view', 'district-create', 'language-view', 'language-create', 'translations-view', 'translations-create', 'setting-mail', 'setting-sms', 'setting-payment', 'application-setting-view', 'schedule-setting-view', 'role-view', 'role-edit', 'field-staff', 'field-student', 'field-application', 'student-panel-view', 'religion-create', 'religion-view', 'caste-create', 'caste-view'])
         <li class="nav-item pcoded-hasmenu {{ Request::is('admin/setting*') ? 'pcoded-trigger active' : '' }} {{ Request::is('admin/translations*') ? 'pcoded-trigger active' : '' }}">
             <a href="#!" class="nav-link">
                 <span class="pcoded-micon"><i class="fas fa-cog"></i></span>
@@ -1043,6 +1039,14 @@
 
                 @canany(['student-panel-view'])
                 <li class="{{ Request::is('admin/setting/student-panel*') ? 'active' : '' }}"><a href="{{ route('admin.student.panel') }}" class="">{{ trans_choice('module_student_panel', 2) }}</a></li>
+                @endcanany
+
+                @canany(['religion-create', 'religion-view'])
+                <li class="{{ Request::is('admin/setting/religion*') ? 'active' : '' }}"><a href="{{ route('admin.religion.index') }}" class="">{{ trans_choice('module_religion', 2) }}</a></li>
+                @endcanany
+
+                @canany(['caste-create', 'caste-view'])
+                <li class="{{ Request::is('admin/setting/caste*') ? 'active' : '' }}"><a href="{{ route('admin.caste.index') }}" class="">{{ trans_choice('module_caste', 2) }}</a></li>
                 @endcanany
             </ul>
         </li>

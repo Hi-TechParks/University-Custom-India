@@ -186,7 +186,6 @@ Route::middleware(['auth:web', 'XSS', 'license'])->name('admin.')->namespace('Ad
     Route::resource('student/course-complete', 'CourseCompleteController');
     Route::resource('student/student-alumni', 'StudentAlumniController');
     Route::resource('student/student-category', 'StudentCategoryController');
-    Route::resource('religion', 'ReligionController');
 
 
 
@@ -469,6 +468,8 @@ Route::middleware(['auth:web', 'XSS', 'license'])->name('admin.')->namespace('Ad
     // Address Routes
     Route::resource('setting/province','ProvinceController');
     Route::resource('setting/district','DistrictController');
+    Route::resource('setting/religion', 'ReligionController');
+    Route::resource('setting/caste', 'CasteController');
 
     // Language Routes
     Route::resource('setting/language', 'LanguageController');

@@ -168,7 +168,6 @@
     "module_course_complete" : "Course Graduation|Course Graduation",
     "module_student_alumni" : "Alumni|Alumni",
     "module_student_category" : "Student Category|Student Categories",
-    "module_religion" : "Religion|Religions",
 
     "module_academic" : "Academic|Academic",
     "module_faculty" : "Faculty|Faculties",
@@ -340,6 +339,8 @@
     "module_general_setting" : "General|General",
     "module_province" : "State/Province|States/Provinces",
     "module_district" : "District/City|Districts/Cities",
+    "module_religion" : "Religion|Religions",
+    "module_caste" : "Caste|Castes",
     "module_language" : "Language|Languages",
     "module_translate" : "Translate|Translates",
     "module_mail_setting" : "Mail Setting|Mail Settings",

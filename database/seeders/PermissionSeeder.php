@@ -38,6 +38,11 @@ class PermissionSeeder extends Seeder
             ['name' => 'student-card', 'group' => 'Student', 'title' => 'ID Card'],
 
             ['name' => 'id-card-setting-view', 'group' => 'ID Card', 'title' => 'Setting'],
+
+            ['name' => 'student-category-view', 'group' => 'Student Category', 'title' => 'View'],
+            ['name' => 'student-category-create', 'group' => 'Student Category', 'title' => 'Create'],
+            ['name' => 'student-category-edit', 'group' => 'Student Category', 'title' => 'Edit'],
+            ['name' => 'student-category-delete', 'group' => 'Student Category', 'title' => 'Delete'],
             //*** Student Modules ***//
 
 
@@ -733,6 +738,16 @@ class PermissionSeeder extends Seeder
             ['name' => 'district-create', 'group' => 'District/City', 'title' => 'Create'],
             ['name' => 'district-edit', 'group' => 'District/City', 'title' => 'Edit'],
             ['name' => 'district-delete', 'group' => 'District/City', 'title' => 'Delete'],
+
+            ['name' => 'religion-view', 'group' => 'Religion', 'title' => 'View'],
+            ['name' => 'religion-create', 'group' => 'Religion', 'title' => 'Create'],
+            ['name' => 'religion-edit', 'group' => 'Religion', 'title' => 'Edit'],
+            ['name' => 'religion-delete', 'group' => 'Religion', 'title' => 'Delete'],
+
+            ['name' => 'caste-view', 'group' => 'Caste', 'title' => 'View'],
+            ['name' => 'caste-create', 'group' => 'Caste', 'title' => 'Create'],
+            ['name' => 'caste-edit', 'group' => 'Caste', 'title' => 'Edit'],
+            ['name' => 'caste-delete', 'group' => 'Caste', 'title' => 'Delete'],
             //*** Address Modules ***//
 
 
@@ -773,11 +788,6 @@ class PermissionSeeder extends Seeder
             ['name' => 'profile-view', 'group' => 'My Profile', 'title' => 'View'],
             ['name' => 'profile-edit', 'group' => 'My Profile', 'title' => 'Edit'],
             ['name' => 'profile-account', 'group' => 'My Profile', 'title' => 'Account'],
-
-            ['name' => 'student-category-view', 'group' => 'Student Category', 'title' => 'View'],
-            ['name' => 'student-category-create', 'group' => 'Student Category', 'title' => 'Create'],
-            ['name' => 'student-category-edit', 'group' => 'Student Category', 'title' => 'Edit'],
-            ['name' => 'student-category-delete', 'group' => 'Student Category', 'title' => 'Delete'],
 
             ['name' => 'religion-view', 'group' => 'Religion', 'title' => 'View'],
             ['name' => 'religion-create', 'group' => 'Religion', 'title' => 'Create'],
