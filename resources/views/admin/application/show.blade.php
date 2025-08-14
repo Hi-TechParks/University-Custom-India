@@ -97,7 +97,7 @@
                                     <p><mark class="text-primary">{{ __('field_mother_occupation') }}:</mark> {{ $row->mother_occupation }}</p><hr/>
                                     @endif
 
-                                    <p><mark class="text-primary">{{ __('field_gender') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_gender') }}:</mark>
                                         @if( $row->gender == 1 )
                                         {{ __('gender_male') }}
                                         @elseif( $row->gender == 2 )
@@ -107,7 +107,7 @@
                                         @endif
                                     </p><hr/>
 
-                                    <p><mark class="text-primary">{{ __('field_dob') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_dob') }}:</mark>
                                         @if(isset($setting->date_format))
                                         {{ date($setting->date_format, strtotime($row->dob)) }}
                                         @else
@@ -119,10 +119,11 @@
                                     <p><mark class="text-primary">{{ __('field_emergency_phone') }}:</mark> {{ $row->emergency_phone }}</p><hr/>
                                     @endif
                                     @if(field('application_religion')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_religion') }}:</mark> {{ $row->religion }}</p><hr/>
+                                    <p><mark class="text-primary">{{ __('field_religion') }}:</mark> {{ $row->religion->title ?? '' }}</p><hr/>
                                     @endif
+                                    <p><mark class="text-primary">{{ __('field_category') }}:</mark> {{ $row->category->title ?? '' }}</p><hr/>
                                     @if(field('application_caste')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_caste') }}:</mark> {{ $row->caste }}</p><hr/>
+                                    <p><mark class="text-primary">{{ __('field_caste') }}:</mark> {{ $row->caste->title ?? '' }}</p><hr/>
                                     @endif
                                     @if(field('application_mother_tongue')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_mother_tongue') }}:</mark> {{ $row->mother_tongue }}</p><hr/>
@@ -132,7 +133,7 @@
                                     @endif
 
                                     @if(field('application_marital_status')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_marital_status') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_marital_status') }}:</mark>
                                         @if( $row->marital_status == 1 )
                                         {{ __('marital_status_single') }}
                                         @elseif( $row->marital_status == 2 )
@@ -148,7 +149,7 @@
                                     @endif
 
                                     @if(field('application_blood_group')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_blood_group') }}:</mark> 
+                                    <p><mark class="text-primary">{{ __('field_blood_group') }}:</mark>
                                         @if( $row->blood_group == 1 )
                                         {{ __('A+') }}
                                         @elseif( $row->blood_group == 2 )
@@ -218,7 +219,7 @@
                                     <p><mark class="text-primary">{{ __('field_graduation_point') }}:</mark> {{ $row->school_graduation_point }}</p><hr/>
                                     </fieldset>
                                     @endif
-                                    
+
                                     @if(field('application_collage_info')->status == 1)
                                     <fieldset class="row gx-2 scheduler-border">
                                     <legend>{{ __('field_college_information') }}</legend>

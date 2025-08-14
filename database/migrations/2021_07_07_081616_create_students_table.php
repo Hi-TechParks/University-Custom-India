@@ -52,7 +52,7 @@ class CreateStudentsTable extends Migration
 
             $table->integer('religion_id')->unsigned()->nullable();
             $table->integer('category_id')->unsigned()->nullable();
-            $table->string('caste')->nullable();
+            $table->integer('caste_id')->unsigned()->nullable();
             $table->string('mother_tongue')->nullable();
             $table->tinyInteger('marital_status')->nullable();
             $table->tinyInteger('blood_group')->nullable();

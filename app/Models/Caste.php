@@ -12,4 +12,14 @@ class Caste extends Model
     protected $fillable = [
         'title', 'slug', 'description', 'status',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'caste_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'caste_id');
+    }
 }

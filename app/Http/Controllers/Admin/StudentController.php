@@ -33,6 +33,7 @@ use App\Models\Student;
 use App\Models\Faculty;
 use App\Models\Batch;
 use App\Models\Grade;
+use App\Models\Caste;
 use App\Models\Fee;
 
 class StudentController extends Controller
@@ -228,6 +229,7 @@ class StudentController extends Controller
         $data['provinces'] = Province::where('status', '1')->orderBy('title', 'asc')->get();
         $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
         $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['castes'] = Caste::where('status', '1')->orderBy('title', 'asc')->get();
 
         return view($this->view.'.create', $data);
     }
@@ -299,7 +301,7 @@ class StudentController extends Controller
 
             $student->religion_id = $request->religion;
             $student->category_id = $request->category;
-            $student->caste = $request->caste;
+            $student->caste_id = $request->caste;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
             $student->blood_group = $request->blood_group;
@@ -470,6 +472,7 @@ class StudentController extends Controller
         $data['batches'] = Batch::where('status', '1')->orderBy('id', 'desc')->get();
         $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
         $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['castes'] = Caste::where('status', '1')->orderBy('title', 'asc')->get();
 
         $data['row'] = $student;
 
@@ -534,7 +537,7 @@ class StudentController extends Controller
 
             $student->religion_id = $request->religion;
             $student->category_id = $request->category;
-            $student->caste = $request->caste;
+            $student->caste_id = $request->caste;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
             $student->blood_group = $request->blood_group;

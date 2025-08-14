@@ -28,7 +28,7 @@
             </div>
         </section>
         <!-- breadcrumb-area-end -->
-                   
+
         <!-- Page Detail -->
         <section class="project-detail">
             <div class="container">
@@ -45,7 +45,7 @@
                 <div class="lower-content2">
                     <div class="row">
                         <div class="text-column col-lg-12 col-md-12 col-sm-12">
-                            <div class="s-about-content wow fadeInRight" data-animation="fadeInRight" data-delay=".2s">  
+                            <div class="s-about-content wow fadeInRight" data-animation="fadeInRight" data-delay=".2s">
 
                                 <h2>{{ $page->title }}</h2>
                                 <p>{!! $page->description !!}</p>
@@ -58,7 +58,7 @@
             </div>
         </section>
         <!--End Page Detail -->
-       
+
     </main>
     <!-- main-area-end -->
 

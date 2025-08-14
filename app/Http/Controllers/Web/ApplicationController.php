@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use Flasher\Laravel\Facade\Flasher;
 use Illuminate\Support\Facades\DB;
 use App\Models\ApplicationSetting;
+use App\Models\StudentCategory;
 use Illuminate\Http\Request;
 use App\Traits\FileUploader;
 use App\Models\Application;
 use App\Models\Province;
+use App\Models\Religion;
 use App\Models\Program;
+use App\Models\Caste;
 use Carbon\Carbon;
 
 class ApplicationController extends Controller
@@ -50,6 +53,9 @@ class ApplicationController extends Controller
         $data['programs'] = Program::where('status', '1')->orderBy('title', 'asc')->get();
         $data['provinces'] = Province::where('status', '1')->orderBy('title', 'asc')->get();
         $data['applicationSetting'] = ApplicationSetting::where('slug', 'admission')->where('status', '1')->firstOrFail();
+        $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['castes'] = Caste::where('status', '1')->orderBy('title', 'asc')->get();
 
         return view($this->view.'.create', $data);
     }
@@ -107,8 +113,9 @@ class ApplicationController extends Controller
             $student->phone = $request->phone;
             $student->emergency_phone = $request->emergency_phone;
 
-            $student->religion = $request->religion;
-            $student->caste = $request->caste;
+            $student->religion_id = $request->religion;
+            $student->category_id = $request->category;
+            $student->caste_id = $request->caste;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
             $student->blood_group = $request->blood_group;

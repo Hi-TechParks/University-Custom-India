@@ -788,11 +788,6 @@ class PermissionSeeder extends Seeder
             ['name' => 'profile-view', 'group' => 'My Profile', 'title' => 'View'],
             ['name' => 'profile-edit', 'group' => 'My Profile', 'title' => 'Edit'],
             ['name' => 'profile-account', 'group' => 'My Profile', 'title' => 'Account'],
-
-            ['name' => 'religion-view', 'group' => 'Religion', 'title' => 'View'],
-            ['name' => 'religion-create', 'group' => 'Religion', 'title' => 'Create'],
-            ['name' => 'religion-edit', 'group' => 'Religion', 'title' => 'Edit'],
-            ['name' => 'religion-delete', 'group' => 'Religion', 'title' => 'Delete'],
             //*** Setting Modules ***//
         ];
 

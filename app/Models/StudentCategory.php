@@ -17,4 +17,9 @@ class StudentCategory extends Model
     {
         return $this->hasMany(Student::class, 'category_id');
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'category_id');
+    }
 }

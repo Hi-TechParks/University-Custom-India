@@ -17,4 +17,9 @@ class Religion extends Model
     {
         return $this->hasMany(Student::class, 'religion_id');
     }
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'religion_id');
+    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Flasher\Laravel\Facade\Flasher;
 use Illuminate\Support\Facades\DB;
+use App\Models\StudentCategory;
 use App\Models\StudentRelative;
 use App\Models\StudentEnroll;
 use App\Models\EnrollSubject;
@@ -17,10 +18,12 @@ use App\Models\Application;
 use App\Models\StatusType;
 use App\Models\Province;
 use App\Models\District;
+use App\Models\Religion;
 use App\Models\Document;
 use App\Models\Program;
 use App\Models\Student;
 use App\Models\Batch;
+use App\Models\Caste;
 use Carbon\Carbon;
 
 class ApplicationController extends Controller
@@ -213,8 +216,9 @@ class ApplicationController extends Controller
             $application->phone = $request->phone;
             $application->emergency_phone = $request->emergency_phone;
 
-            $application->religion = $request->religion;
-            $application->caste = $request->caste;
+            $application->religion_id = $request->religion;
+            $application->category_id = $request->category;
+            $application->caste_id = $request->caste;
             $application->mother_tongue = $request->mother_tongue;
             $application->marital_status = $request->marital_status;
             $application->blood_group = $request->blood_group;
@@ -412,6 +416,9 @@ class ApplicationController extends Controller
                             ->orderBy('title', 'asc')->get();
         $data['statuses'] = StatusType::where('status', '1')->get();
         $data['batches'] = Batch::where('status', '1')->orderBy('id', 'desc')->get();
+        $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['castes'] = Caste::where('status', '1')->orderBy('title', 'asc')->get();
 
         $data['row'] = $application;
 

@@ -156,24 +156,48 @@
                             </div>
                             @endif
 
-                            @if(field('student_religion')->status == 1)
+                            @if(field('application_religion')->status == 1)
                             <div class="form-group col-md-6">
                                 <label for="religion">{{ __('field_religion') }}</label>
-                                <input type="text" class="form-control" name="religion" id="religion" value="{{ $row->religion }}">
+                                <select class="form-control" name="religion" id="religion">
+                                    <option value="">{{ __('all') }}</option>
+                                    @foreach( $religions as $religion )
+                                    <option value="{{ $religion->id }}" @if($row->religion_id == $religion->id) selected @endif>{{ $religion->title }}</option>
+                                    @endforeach
+                                </select>
 
                                 <div class="invalid-feedback">
-                                  {{ __('required_field') }} {{ __('field_religion') }}
+                                    {{ __('required_field') }} {{ __('field_religion') }}
                                 </div>
                             </div>
                             @endif
 
-                            @if(field('student_caste')->status == 1)
                             <div class="form-group col-md-6">
-                                <label for="caste">{{ __('field_caste') }}</label>
-                                <input type="text" class="form-control" name="caste" id="caste" value="{{ $row->caste }}">
+                                <label for="category">{{ __('field_student') }} {{ __('field_category') }}</label>
+                                <select class="form-control" name="category" id="category">
+                                    <option value="">{{ __('all') }}</option>
+                                    @foreach( $categories as $category )
+                                    <option value="{{ $category->id }}" @if($row->category_id == $category->id) selected @endif>{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
 
                                 <div class="invalid-feedback">
-                                  {{ __('required_field') }} {{ __('field_caste') }}
+                                    {{ __('required_field') }} {{ __('field_student') }} {{ __('field_category') }}
+                                </div>
+                            </div>
+
+                            @if(field('application_caste')->status == 1)
+                            <div class="form-group col-md-6">
+                                <label for="caste">{{ __('field_caste') }}</label>
+                                <select class="form-control" name="caste" id="caste">
+                                    <option value="">{{ __('all') }}</option>
+                                    @foreach( $castes as $caste )
+                                    <option value="{{ $caste->id }}" @if($row->caste_id == $caste->id) selected @endif>{{ $caste->title }}</option>
+                                    @endforeach
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    {{ __('required_field') }} {{ __('field_caste') }}
                                 </div>
                             </div>
                             @endif
@@ -479,7 +503,7 @@
                                 </div>
                             </div>
                             </fieldset>
-                            
+
                             @if(field('student_relatives')->status == 1)
                             <fieldset class="row scheduler-border">
                             <legend>{{ __('field_guardians_information') }}</legend>
@@ -686,7 +710,7 @@
             headerTag: "h3",
             bodyTag: "content",
             transitionEffect: "slideLeft",
-            labels: 
+            labels:
             {
                 finish: "{{ __('btn_finish') }}",
                 next: "{{ __('btn_next') }}",
@@ -711,7 +735,7 @@
             },
             onStepChanged: function (event, currentIndex, priorIndex)
             {
-                
+
             },
             onFinishing: function (event, currentIndex)
             {

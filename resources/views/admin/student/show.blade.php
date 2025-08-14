@@ -171,10 +171,12 @@
                                     @if(field('student_emergency_phone')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_emergency_phone') }}:</mark> {{ $row->emergency_phone }}</p><hr/>
                                     @endif
+                                    @if(field('student_religion')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_religion') }}:</mark> {{ $row->religion->title ?? '' }}</p><hr/>
+                                    @endif
                                     <p><mark class="text-primary">{{ __('field_student') }} {{ __('field_category') }}:</mark> {{ $row->category->title ?? '' }}</p><hr/>
                                     @if(field('student_caste')->status == 1)
-                                    <p><mark class="text-primary">{{ __('field_caste') }}:</mark> {{ $row->caste }}</p><hr/>
+                                    <p><mark class="text-primary">{{ __('field_caste') }}:</mark> {{ $row->caste->title ?? '' }}</p><hr/>
                                     @endif
                                     @if(field('student_mother_tongue')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_mother_tongue') }}:</mark> {{ $row->mother_tongue }}</p><hr/>

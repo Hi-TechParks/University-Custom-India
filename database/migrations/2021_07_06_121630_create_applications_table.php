@@ -44,9 +44,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('emergency_phone')->nullable();
-            
-            $table->string('religion')->nullable();
-            $table->string('caste')->nullable();
+
+            $table->integer('religion_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('caste_id')->unsigned()->nullable();
             $table->string('mother_tongue')->nullable();
             $table->tinyInteger('marital_status')->nullable();
             $table->tinyInteger('blood_group')->nullable();
@@ -68,7 +69,7 @@ return new class extends Migration
             $table->string('collage_graduation_point')->nullable();
             $table->string('collage_transcript')->nullable();
             $table->string('collage_certificate')->nullable();
-            
+
             $table->text('photo')->nullable();
             $table->text('signature')->nullable();
 
