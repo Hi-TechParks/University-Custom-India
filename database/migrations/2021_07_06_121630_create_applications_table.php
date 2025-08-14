@@ -46,8 +46,8 @@ return new class extends Migration
             $table->string('emergency_phone')->nullable();
 
             $table->integer('religion_id')->unsigned()->nullable();
-            $table->integer('category_id')->unsigned()->nullable();
             $table->integer('caste_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->string('mother_tongue')->nullable();
             $table->tinyInteger('marital_status')->nullable();
             $table->tinyInteger('blood_group')->nullable();

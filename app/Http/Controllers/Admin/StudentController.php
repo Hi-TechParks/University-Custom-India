@@ -259,6 +259,7 @@ class StudentController extends Controller
             'admission_date' => 'required|date',
             'photo' => 'nullable|image',
             'signature' => 'nullable|image',
+            'category' => 'required'
         ]);
 
         // Random Password
@@ -502,6 +503,7 @@ class StudentController extends Controller
             'admission_date' => 'required|date',
             'photo' => 'nullable|image',
             'signature' => 'nullable|image',
+            'category' => 'required'
         ]);
 
         // Update Data

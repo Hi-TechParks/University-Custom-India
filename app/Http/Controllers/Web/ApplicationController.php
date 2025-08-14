@@ -79,6 +79,7 @@ class ApplicationController extends Controller
             'dob' => 'required|date',
             'photo' => 'nullable|image',
             'signature' => 'nullable|image',
+            'category' => 'required',
         ]);
 
 
@@ -114,8 +115,8 @@ class ApplicationController extends Controller
             $student->emergency_phone = $request->emergency_phone;
 
             $student->religion_id = $request->religion;
-            $student->category_id = $request->category;
             $student->caste_id = $request->caste;
+            $student->category_id = $request->category;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
             $student->blood_group = $request->blood_group;

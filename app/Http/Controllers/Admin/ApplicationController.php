@@ -174,6 +174,7 @@ class ApplicationController extends Controller
             'admission_date' => 'required|date',
             'photo' => 'nullable|image',
             'signature' => 'nullable|image',
+            'category' => 'required'
         ]);
 
         // Random Password
@@ -217,8 +218,8 @@ class ApplicationController extends Controller
             $application->emergency_phone = $request->emergency_phone;
 
             $application->religion_id = $request->religion;
-            $application->category_id = $request->category;
             $application->caste_id = $request->caste;
+            $application->category_id = $request->category;
             $application->mother_tongue = $request->mother_tongue;
             $application->marital_status = $request->marital_status;
             $application->blood_group = $request->blood_group;
@@ -417,8 +418,8 @@ class ApplicationController extends Controller
         $data['statuses'] = StatusType::where('status', '1')->get();
         $data['batches'] = Batch::where('status', '1')->orderBy('id', 'desc')->get();
         $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
-        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
         $data['castes'] = Caste::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
 
         $data['row'] = $application;
 

@@ -187,8 +187,8 @@
                             @endif
 
                             <div class="form-group col-md-6">
-                                <label for="category">{{ __('field_student') }} {{ __('field_category') }}</label>
-                                <select class="form-control" name="category" id="category">
+                                <label for="category">{{ __('field_student') }} {{ __('field_category') }} <span>*</span></label>
+                                <select class="form-control" name="category" id="category" required>
                                     <option value="">{{ __('all') }}</option>
                                     @foreach( $categories as $category )
                                     <option value="{{ $category->id }}" @if(old('category') == $category->id) selected @endif>{{ $category->title }}</option>
