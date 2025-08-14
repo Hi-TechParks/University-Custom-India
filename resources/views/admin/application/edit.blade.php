@@ -156,7 +156,7 @@
                             </div>
                             @endif
 
-                            @if(field('application_religion')->status == 1)
+                            @if(field('student_religion')->status == 1)
                             <div class="form-group col-md-6">
                                 <label for="religion">{{ __('field_religion') }}</label>
                                 <select class="form-control" name="religion" id="religion">
@@ -168,6 +168,22 @@
 
                                 <div class="invalid-feedback">
                                     {{ __('required_field') }} {{ __('field_religion') }}
+                                </div>
+                            </div>
+                            @endif
+
+                            @if(field('student_caste')->status == 1)
+                            <div class="form-group col-md-6">
+                                <label for="caste">{{ __('field_caste') }}</label>
+                                <select class="form-control" name="caste" id="caste">
+                                    <option value="">{{ __('all') }}</option>
+                                    @foreach( $castes as $caste )
+                                    <option value="{{ $caste->id }}" @if($row->caste_id == $caste->id) selected @endif>{{ $caste->title }}</option>
+                                    @endforeach
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    {{ __('required_field') }} {{ __('field_caste') }}
                                 </div>
                             </div>
                             @endif
@@ -185,22 +201,6 @@
                                     {{ __('required_field') }} {{ __('field_student') }} {{ __('field_category') }}
                                 </div>
                             </div>
-
-                            @if(field('application_caste')->status == 1)
-                            <div class="form-group col-md-6">
-                                <label for="caste">{{ __('field_caste') }}</label>
-                                <select class="form-control" name="caste" id="caste">
-                                    <option value="">{{ __('all') }}</option>
-                                    @foreach( $castes as $caste )
-                                    <option value="{{ $caste->id }}" @if($row->caste_id == $caste->id) selected @endif>{{ $caste->title }}</option>
-                                    @endforeach
-                                </select>
-
-                                <div class="invalid-feedback">
-                                    {{ __('required_field') }} {{ __('field_caste') }}
-                                </div>
-                            </div>
-                            @endif
 
                             @if(field('student_mother_tongue')->status == 1)
                             <div class="form-group col-md-6">
