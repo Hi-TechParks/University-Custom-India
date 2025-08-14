@@ -171,20 +171,6 @@
                             </div>
                             @endif
 
-                            <div class="form-group col-md-6">
-                                <label for="category">{{ __('field_student') }} {{ __('field_category') }}</label>
-                                <select class="form-control" name="category" id="category">
-                                    <option value="">{{ __('all') }}</option>
-                                    @foreach( $categories as $category )
-                                    <option value="{{ $category->id }}" @if($row->category_id == $category->id) selected @endif>{{ $category->title }}</option>
-                                    @endforeach
-                                </select>
-
-                                <div class="invalid-feedback">
-                                    {{ __('required_field') }} {{ __('field_student') }} {{ __('field_category') }}
-                                </div>
-                            </div>
-
                             @if(field('student_caste')->status == 1)
                             <div class="form-group col-md-6">
                                 <label for="caste">{{ __('field_caste') }}</label>
@@ -200,6 +186,20 @@
                                 </div>
                             </div>
                             @endif
+
+                            <div class="form-group col-md-6">
+                                <label for="category">{{ __('field_student') }} {{ __('field_category') }}</label>
+                                <select class="form-control" name="category" id="category">
+                                    <option value="">{{ __('all') }}</option>
+                                    @foreach( $categories as $category )
+                                    <option value="{{ $category->id }}" @if($row->category_id == $category->id) selected @endif>{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    {{ __('required_field') }} {{ __('field_student') }} {{ __('field_category') }}
+                                </div>
+                            </div>
 
                             @if(field('student_mother_tongue')->status == 1)
                             <div class="form-group col-md-6">
