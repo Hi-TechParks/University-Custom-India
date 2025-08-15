@@ -167,6 +167,7 @@ class DashboardController extends Controller
 
         // program wise student count
         $data['studentProgramData'] = Student::selectRaw('program_id, COUNT(*) as total')
+            ->whereNotNull('program_id')
             ->groupBy('program_id')
             ->with('program')
             ->get();
@@ -184,6 +185,20 @@ class DashboardController extends Controller
                     'total' => $students->count()
                 ];
             })->values();
+
+        // caste wise student count
+        $data['studentCasteData'] = Student::selectRaw('caste_id, COUNT(*) as total')
+            ->whereNotNull('caste_id')
+            ->groupBy('caste_id')
+            ->with('caste')
+            ->get();
+
+        // religion wise student count
+        $data['studentReligionData'] = Student::selectRaw('religion_id, COUNT(*) as total')
+            ->whereNotNull('religion_id')
+            ->groupBy('religion_id')
+            ->with('religion')
+            ->get();
 
 
       	return view($this->view.'.index', $data)->with('months', json_encode($months,JSON_NUMERIC_CHECK))->with('fees', json_encode($fees,JSON_NUMERIC_CHECK))->with('expenses', json_encode($expenses, JSON_NUMERIC_CHECK))->with('incomes', json_encode($incomes, JSON_NUMERIC_CHECK))->with('salaries', json_encode($salaries, JSON_NUMERIC_CHECK))->with('student_fee', json_encode($student_fee, JSON_NUMERIC_CHECK))->with('discounts', json_encode($discounts, JSON_NUMERIC_CHECK))->with('fines', json_encode($fines, JSON_NUMERIC_CHECK))->with('fee_paid', json_encode($fee_paid, JSON_NUMERIC_CHECK))->with('net_salary', json_encode($net_salary, JSON_NUMERIC_CHECK))->with('total_tax', json_encode($total_tax, JSON_NUMERIC_CHECK))->with('total_deduction', json_encode($total_deduction, JSON_NUMERIC_CHECK))->with('total_allowance', json_encode($total_allowance, JSON_NUMERIC_CHECK))->with('monthly_visitors', json_encode($monthly_visitors,JSON_NUMERIC_CHECK))->with('monthly_phone_logs', json_encode($monthly_phone_logs,JSON_NUMERIC_CHECK))->with('monthly_enqueries', json_encode($monthly_enqueries,JSON_NUMERIC_CHECK))->with('monthly_complains', json_encode($monthly_complains,JSON_NUMERIC_CHECK))->with('monthly_postals', json_encode($monthly_postals,JSON_NUMERIC_CHECK))->with('monthly_schedules', json_encode($monthly_schedules,JSON_NUMERIC_CHECK));

@@ -183,6 +183,24 @@
                 </div>
             </div>
             @endcanany
+            @canany(['student-view'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="studentsByCasteChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['student-view'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="studentsByReligionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
             @canany(['fees-student-report'])
             <div class="col-xl-4 col-md-6">
                 <div class="card">
@@ -529,6 +547,78 @@ $(function(){
                 title: {
                     display: true,
                     text: '{{ trans_choice('module_faculty', 2) }}'
+            }
+            }
+        }
+    });
+
+    // caste wise student count
+    const ctxCaste = document.getElementById('studentsByCasteChart');
+
+    new Chart(ctxCaste, {
+        type: 'doughnut',
+        data: {
+            labels: @json($studentCasteData->pluck('caste.title')),
+            datasets: [{
+                label: 'Students',
+                data: @json($studentCasteData->pluck('total')),
+                backgroundColor: [
+                    '#19b3ea',
+                    '#f2f249',
+                    '#3030c7',
+                    '#fa2fd2',
+                    '#f28a4e',
+                    '#eb1acb',
+                    '#31e03a'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '{{ trans_choice('module_caste', 2) }}'
+            }
+            }
+        }
+    });
+
+    // religion wise student count
+    const ctxReligion = document.getElementById('studentsByReligionChart');
+
+    new Chart(ctxReligion, {
+        type: 'pie',
+        data: {
+            labels: @json($studentReligionData->pluck('religion.title')),
+            datasets: [{
+                label: 'Students',
+                data: @json($studentReligionData->pluck('total')),
+                backgroundColor: [
+                    '#19b3ea',
+                    '#f2f249',
+                    '#3030c7',
+                    '#fa2fd2',
+                    '#f28a4e',
+                    '#eb1acb',
+                    '#31e03a'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '{{ trans_choice('module_religion', 2) }}'
             }
             }
         }
