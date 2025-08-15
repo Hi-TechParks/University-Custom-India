@@ -93,20 +93,20 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg bitcoin-wallet">
+                <div class="card theme-bg2 bitcoin-wallet">
                     <div class="card-block">
                         <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_faculty', 2) }}</h5>
                         <h2 class="text-white mb-2 f-w-300">{{ $total_faculty->count() }}</h2>
-                        <i class="fas fa-exchange-alt f-70 text-white"></i>
+                        <i class="fas fa-sitemap f-70 text-white"></i>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg bitcoin-wallet">
+                <div class="card theme-bg2 bitcoin-wallet">
                     <div class="card-block">
                         <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_program', 2) }}</h5>
                         <h2 class="text-white mb-2 f-w-300">{{ $total_program->count() }}</h2>
-                        <i class="fas fa-exchange-alt f-70 text-white"></i>
+                        <i class="fas fa-graduation-cap f-70 text-white"></i>
                     </div>
                 </div>
             </div>
@@ -426,7 +426,9 @@ $(function(){
 
 
 <script type="text/javascript">
-    // category wise student count
+'use strict';
+$(function(){
+    // Category Wise Student
     const ctxCategory = document.getElementById('studentsByCategoryChart');
 
     new Chart(ctxCategory, {
@@ -437,19 +439,23 @@ $(function(){
                 label: 'Students',
                 data: @json($studentCategoryData->pluck('total')),
                 backgroundColor: [
-                    '#4e73df',
-                    '#1cc88a',
-                    '#36b9cc',
-                    '#f6c23e',
-                    '#e74a3b',
-                    '#8e44ad',
-                    '#2ecc71'
+                    "#1de9b6",
+                    "#899FD4",
+                    "#04a9f5",
+                    "#2f4858",
+                    "#386c5f",
+                    "#a2b455",
+                    "#daeb89",
+                    "#7a91fb",
+                    "#b0ec8f",
+                    "#fa7239"
                 ],
                 borderWidth: 1
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -462,7 +468,7 @@ $(function(){
         }
     });
 
-    // program wise student count
+    // Program wise student
     const ctxProgram = document.getElementById('studentsByProgramChart');
 
     new Chart(ctxProgram, {
@@ -473,19 +479,23 @@ $(function(){
                 label: 'Students',
                 data: @json($studentProgramData->pluck('total')),
                 backgroundColor: [
-                    '#2bc433',
-                    '#12a671',
-                    '#1b99ab',
-                    '#f7b40a',
-                    '#e63827',
-                    '#7f09b0',
-                    '#19b55b'
+                    "#1de9b6",
+                    "#899FD4",
+                    "#04a9f5",
+                    "#2f4858",
+                    "#386c5f",
+                    "#a2b455",
+                    "#daeb89",
+                    "#7a91fb",
+                    "#b0ec8f",
+                    "#fa7239"
                 ],
                 borderWidth: 1
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -498,30 +508,34 @@ $(function(){
         }
     });
 
-    // faculty wise student count
+    // Faculty wise student
     const ctxFaculty = document.getElementById('studentsByFacultyChart');
 
     new Chart(ctxFaculty, {
         type: 'pie',
         data: {
-            labels: @json($studentFacultyData->pluck('faculty_name')),
+            labels: @json($studentFacultyData->pluck('faculty_title')),
             datasets: [{
                 label: 'Students',
                 data: @json($studentFacultyData->pluck('total')),
                 backgroundColor: [
-                    '#19bf93',
-                    '#e8e81c',
-                    '#1b1bab',
-                    '#f70ac8',
-                    '#e66d27',
-                    '#b00997',
-                    '#19b521'
+                    "#1de9b6",
+                    "#899FD4",
+                    "#04a9f5",
+                    "#2f4858",
+                    "#386c5f",
+                    "#a2b455",
+                    "#daeb89",
+                    "#7a91fb",
+                    "#b0ec8f",
+                    "#fa7239"
                 ],
                 borderWidth: 1
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -533,6 +547,7 @@ $(function(){
             }
         }
     });
+});
 </script>
 
 

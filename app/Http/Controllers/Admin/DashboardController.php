@@ -159,28 +159,30 @@ class DashboardController extends Controller
 			$monthly_schedules[] = MeetingSchedule::whereYear('date', $year)->whereMonth('date', $f)->count();
 		}
 
-        // category wise student count
+		
+
+        // Category wise student
         $data['studentCategoryData'] = Student::selectRaw('category_id, COUNT(*) as total')
             ->groupBy('category_id')
-            ->with('category') // relationship
+            ->with('category')
             ->get();
 
-        // program wise student count
+        // Program wise student
         $data['studentProgramData'] = Student::selectRaw('program_id, COUNT(*) as total')
             ->groupBy('program_id')
             ->with('program')
             ->get();
 
-        // faculty wise student count
+        // Faculty wise student
         $data['studentFacultyData'] = Student::with('program.faculty')
             ->get()
             ->groupBy(function($student) {
-                return $student->program->faculty->id ?? null; //
+                return $student->program->faculty->id ?? null;
             })
             ->map(function($students, $faculty_id) {
                 return [
                     'faculty_id' => $faculty_id,
-                    'faculty_name' => $students->first()->program->faculty->title ?? 'No Faculty',
+                    'faculty_title' => $students->first()->program->faculty->title ?? 'No Faculty',
                     'total' => $students->count()
                 ];
             })->values();
