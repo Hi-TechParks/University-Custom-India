@@ -54,8 +54,8 @@ class ApplicationController extends Controller
         $data['provinces'] = Province::where('status', '1')->orderBy('title', 'asc')->get();
         $data['applicationSetting'] = ApplicationSetting::where('slug', 'admission')->where('status', '1')->firstOrFail();
         $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
-        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
         $data['castes'] = Caste::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
 
         return view($this->view.'.create', $data);
     }
@@ -89,6 +89,7 @@ class ApplicationController extends Controller
 
             $student = new Application;
             $student->program_id = $request->program;
+            $student->category_id = $request->category;
             $student->apply_date = Carbon::today();
 
             $student->first_name = $request->first_name;
@@ -116,7 +117,6 @@ class ApplicationController extends Controller
 
             $student->religion_id = $request->religion;
             $student->caste_id = $request->caste;
-            $student->category_id = $request->category;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
             $student->blood_group = $request->blood_group;
@@ -149,7 +149,7 @@ class ApplicationController extends Controller
 
             Flasher::addSuccess(__('msg_sent_successfully'), __('msg_success'));
 
-            return redirect()->route($this->route.'.index')->with('success', __('msg_sent_successfully'));
+            return redirect()->route($this->route.'.index');
         }
         catch(\Exception $e) {
 

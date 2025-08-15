@@ -274,6 +274,7 @@ class StudentController extends Controller
             $student->batch_id = $request->batch;
             $student->program_id = $request->program;
             $student->admission_date = $request->admission_date;
+            $student->category_id = $request->category;
 
             $student->first_name = $request->first_name;
             $student->last_name = $request->last_name;
@@ -302,7 +303,6 @@ class StudentController extends Controller
 
             $student->religion_id = $request->religion;
             $student->caste_id = $request->caste;
-            $student->category_id = $request->category;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
             $student->blood_group = $request->blood_group;
@@ -513,6 +513,7 @@ class StudentController extends Controller
             $student->student_id = $request->student_id;
             $student->batch_id = $request->batch;
             $student->admission_date = $request->admission_date;
+            $student->category_id = $request->category;
 
             $student->first_name = $request->first_name;
             $student->last_name = $request->last_name;
@@ -539,7 +540,6 @@ class StudentController extends Controller
 
             $student->religion_id = $request->religion;
             $student->caste_id = $request->caste;
-            $student->category_id = $request->category;
             $student->mother_tongue = $request->mother_tongue;
             $student->marital_status = $request->marital_status;
             $student->blood_group = $request->blood_group;

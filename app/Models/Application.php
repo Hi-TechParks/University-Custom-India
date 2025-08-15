@@ -50,13 +50,13 @@ class Application extends Model
         return $this->belongsTo(Religion::class, 'religion_id');
     }
 
-    public function category()
-    {
-        return $this->belongsTo(StudentCategory::class, 'category_id');
-    }
-
     public function caste()
     {
         return $this->belongsTo(Caste::class, 'caste_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(StudentCategory::class, 'category_id');
     }
 }

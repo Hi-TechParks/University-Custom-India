@@ -56,6 +56,10 @@
                             <span class="float-end">{{ $row->program->title ?? '' }}</span>
                         </li>
                         <li class="list-group-item">
+                            <span class="f-w-500"><i class="fas fa-puzzle-piece m-r-10"></i>{{ __('field_category') }} : </span>
+                            <span class="float-end">{{ $row->category->title ?? '' }}</span>
+                        </li>
+                        <li class="list-group-item">
                             <span class="f-w-500"><i class="far fa-calendar-alt m-r-10"></i>{{ __('field_admission_date') }} : </span>
                             <span class="float-end">
                                 @if(isset($setting->date_format))
@@ -174,7 +178,6 @@
                                     @if(field('student_religion')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_religion') }}:</mark> {{ $row->religion->title ?? '' }}</p><hr/>
                                     @endif
-                                    <p><mark class="text-primary">{{ __('field_student') }} {{ __('field_category') }}:</mark> {{ $row->category->title ?? '' }}</p><hr/>
                                     @if(field('student_caste')->status == 1)
                                     <p><mark class="text-primary">{{ __('field_caste') }}:</mark> {{ $row->caste->title ?? '' }}</p><hr/>
                                     @endif

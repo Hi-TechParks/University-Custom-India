@@ -160,6 +160,7 @@ Route::middleware(['auth:web', 'XSS', 'license'])->name('admin.')->namespace('Ad
     // Admission Routes
     Route::resource('admission/student-transfer-out', 'StudentTransferOutController');
     Route::resource('admission/student-transfer-in', 'StudentTransferInController');
+    Route::resource('admission/student-category', 'StudentCategoryController');
     Route::resource('admission/status-type', 'StatusTypeController');
     Route::resource('admission/id-card', 'StudentIdCardController');
     Route::get('admission/id-card-print/{id}', 'StudentIdCardController@print')->name('id-card.print');
@@ -185,7 +186,6 @@ Route::middleware(['auth:web', 'XSS', 'license'])->name('admin.')->namespace('Ad
     Route::resource('student/subject-adddrop', 'SubjectAddDropController');
     Route::resource('student/course-complete', 'CourseCompleteController');
     Route::resource('student/student-alumni', 'StudentAlumniController');
-    Route::resource('student/student-category', 'StudentCategoryController');
 
 
 
@@ -468,6 +468,8 @@ Route::middleware(['auth:web', 'XSS', 'license'])->name('admin.')->namespace('Ad
     // Address Routes
     Route::resource('setting/province','ProvinceController');
     Route::resource('setting/district','DistrictController');
+
+    // Religion Routes
     Route::resource('setting/religion', 'ReligionController');
     Route::resource('setting/caste', 'CasteController');
 

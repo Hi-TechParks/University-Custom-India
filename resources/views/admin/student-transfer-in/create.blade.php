@@ -157,10 +157,15 @@
                             @if(field('student_religion')->status == 1)
                             <div class="form-group col-md-6">
                                 <label for="religion">{{ __('field_religion') }}</label>
-                                <input type="text" class="form-control" name="religion" id="religion" value="{{ old('religion') }}">
+                                <select class="form-control" name="religion" id="religion">
+                                    <option value="">{{ __('select') }}</option>
+                                    @foreach( $religions as $religion )
+                                    <option value="{{ $religion->id }}" @if(old('religion') == $religion->id) selected @endif>{{ $religion->title }}</option>
+                                    @endforeach
+                                </select>
 
                                 <div class="invalid-feedback">
-                                  {{ __('required_field') }} {{ __('field_religion') }}
+                                    {{ __('required_field') }} {{ __('field_religion') }}
                                 </div>
                             </div>
                             @endif
@@ -168,10 +173,15 @@
                             @if(field('student_caste')->status == 1)
                             <div class="form-group col-md-6">
                                 <label for="caste">{{ __('field_caste') }}</label>
-                                <input type="text" class="form-control" name="caste" id="caste" value="{{ old('caste') }}">
+                                <select class="form-control" name="caste" id="caste">
+                                    <option value="">{{ __('select') }}</option>
+                                    @foreach( $castes as $caste )
+                                    <option value="{{ $caste->id }}" @if(old('caste') == $caste->id) selected @endif>{{ $caste->title }}</option>
+                                    @endforeach
+                                </select>
 
                                 <div class="invalid-feedback">
-                                  {{ __('required_field') }} {{ __('field_caste') }}
+                                    {{ __('required_field') }} {{ __('field_caste') }}
                                 </div>
                             </div>
                             @endif
@@ -293,7 +303,7 @@
                               <div class="col-md-6">
                                 <fieldset class="row scheduler-border">
                                   <legend>{{ __('field_permanent') }} {{ __('field_address') }}</legend>
-                                  
+
                                   @include('common.inc.permanent_province')
 
                                   <div class="form-group col-md-12">
@@ -466,6 +476,20 @@
                             </div>
 
                             <div class="form-group col-md-6">
+                                <label for="category">{{ __('field_category') }} <span>*</span></label>
+                                <select class="form-control" name="category" id="category" required>
+                                    <option value="">{{ __('select') }}</option>
+                                    @foreach( $categories as $category )
+                                    <option value="{{ $category->id }}" @if(old('category') == $category->id) selected @endif>{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    {{ __('required_field') }} {{ __('field_category') }}
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
                                 <label for="status">{{ __('field_status') }}</label>
                                 <select class="form-control select2" name="statuses[]" id="status" multiple>
                                     @foreach( $statuses as $status )
@@ -478,7 +502,7 @@
                                 </div>
                             </div>
                             </fieldset>
-                            
+
                             @if(field('student_relatives')->status == 1)
                             <fieldset class="row scheduler-border">
                             <legend>{{ __('field_guardians_information') }}</legend>
@@ -594,7 +618,7 @@
                                 </div>
                             </div>
                             @endif
-                            
+
                             @if(field('student_photo')->status == 1)
                             <div class="form-group col-md-6">
                                 <label for="photo">{{ __('field_photo') }}: <span>{{ __('image_size', ['height' => 300, 'width' => 300]) }}</span></label>
@@ -632,7 +656,7 @@
                             </fieldset>
                             <!-- Form End--->
                         </content>
-                        
+
                         <h3>{{ __('tab_transfer_info') }}</h3>
                         <content class="form-step">
                             <!-- Form Start--->
@@ -716,7 +740,7 @@
             headerTag: "h3",
             bodyTag: "content",
             transitionEffect: "slideLeft",
-            labels: 
+            labels:
             {
                 finish: "{{ __('btn_finish') }}",
                 next: "{{ __('btn_next') }}",
@@ -741,7 +765,7 @@
             },
             onStepChanged: function (event, currentIndex, priorIndex)
             {
-                
+
             },
             onFinishing: function (event, currentIndex)
             {

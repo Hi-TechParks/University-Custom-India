@@ -46,6 +46,10 @@
                 </li>
                 @endcanany
 
+                @canany(['student-category-create', 'student-category-view'])
+                <li class="{{ Request::is('admin/admission/student-category*') ? 'active' : '' }}"><a href="{{ route('admin.student-category.index') }}" class="">{{ trans_choice('module_student_category', 2) }}</a></li>
+                @endcanany
+
                 @canany(['status-type-create', 'status-type-view'])
                 <li class="{{ Request::is('admin/admission/status-type*') ? 'active' : '' }}"><a href="{{ route('admin.status-type.index') }}" class="">{{ trans_choice('module_status_type', 2) }}</a></li>
                 @endcanany
@@ -66,10 +70,6 @@
                         @endcan
                     </ul>
                 </li>
-                @endcanany
-
-                @canany(['student-category-create', 'student-category-view'])
-                <li class="{{ Request::is('admin/admission/student-category*') ? 'active' : '' }}"><a href="{{ route('admin.student-category.index') }}" class="">{{ trans_choice('module_student_category', 2) }}</a></li>
                 @endcanany
             </ul>
         </li>
@@ -983,6 +983,14 @@
                 <li class="{{ Request::is('admin/setting/district*') ? 'active' : '' }}"><a href="{{ route('admin.district.index') }}" class="">{{ trans_choice('module_district', 2) }}</a></li>
                 @endcanany
 
+                @canany(['religion-create', 'religion-view'])
+                <li class="{{ Request::is('admin/setting/religion*') ? 'active' : '' }}"><a href="{{ route('admin.religion.index') }}" class="">{{ trans_choice('module_religion', 2) }}</a></li>
+                @endcanany
+
+                @canany(['caste-create', 'caste-view'])
+                <li class="{{ Request::is('admin/setting/caste*') ? 'active' : '' }}"><a href="{{ route('admin.caste.index') }}" class="">{{ trans_choice('module_caste', 2) }}</a></li>
+                @endcanany
+
                 @canany(['language-view', 'language-create'])
                 <li class="{{ Request::is('admin/setting/language*') ? 'active' : '' }}"><a href="{{ route('admin.language.index') }}" class="">{{ trans_choice('module_language', 2) }}</a></li>
                 @endcanany
@@ -1039,14 +1047,6 @@
 
                 @canany(['student-panel-view'])
                 <li class="{{ Request::is('admin/setting/student-panel*') ? 'active' : '' }}"><a href="{{ route('admin.student.panel') }}" class="">{{ trans_choice('module_student_panel', 2) }}</a></li>
-                @endcanany
-
-                @canany(['religion-create', 'religion-view'])
-                <li class="{{ Request::is('admin/setting/religion*') ? 'active' : '' }}"><a href="{{ route('admin.religion.index') }}" class="">{{ trans_choice('module_religion', 2) }}</a></li>
-                @endcanany
-
-                @canany(['caste-create', 'caste-view'])
-                <li class="{{ Request::is('admin/setting/caste*') ? 'active' : '' }}"><a href="{{ route('admin.caste.index') }}" class="">{{ trans_choice('module_caste', 2) }}</a></li>
                 @endcanany
             </ul>
         </li>

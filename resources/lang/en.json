@@ -157,6 +157,7 @@
     "module_id_card_setting" : "ID Card Setting|ID Card Settings",
 
     "module_student" : "Student|Students",
+    "module_student_category" : "Student Category|Student Categories",
     "module_student_attendance" : "Student Attendance|Student Attendances",
     "module_student_subject_attendance" : "Subject Attendance|Subject Attendances",
     "module_student_subject_report" : "Attendance Report|Attendance Reports",
@@ -167,7 +168,6 @@
     "module_subject_adddrop" : "Course Add Drop|Course Add Drop",
     "module_course_complete" : "Course Graduation|Course Graduation",
     "module_student_alumni" : "Alumni|Alumni",
-    "module_student_category" : "Student Category|Student Categories",
 
     "module_academic" : "Academic|Academic",
     "module_faculty" : "Faculty|Faculties",

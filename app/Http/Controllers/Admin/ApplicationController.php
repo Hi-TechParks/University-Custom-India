@@ -174,7 +174,7 @@ class ApplicationController extends Controller
             'admission_date' => 'required|date',
             'photo' => 'nullable|image',
             'signature' => 'nullable|image',
-            'category' => 'required'
+            'category' => 'required',
         ]);
 
         // Random Password
@@ -190,6 +190,7 @@ class ApplicationController extends Controller
             $application->registration_no = $request->registration_no;
             $application->batch_id = $request->batch;
             $application->program_id = $request->program;
+            $application->category_id = $request->category;
             $application->admission_date = $request->admission_date;
 
             $application->first_name = $request->first_name;
@@ -219,7 +220,6 @@ class ApplicationController extends Controller
 
             $application->religion_id = $request->religion;
             $application->caste_id = $request->caste;
-            $application->category_id = $request->category;
             $application->mother_tongue = $request->mother_tongue;
             $application->marital_status = $request->marital_status;
             $application->blood_group = $request->blood_group;

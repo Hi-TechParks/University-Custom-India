@@ -738,7 +738,11 @@ class PermissionSeeder extends Seeder
             ['name' => 'district-create', 'group' => 'District/City', 'title' => 'Create'],
             ['name' => 'district-edit', 'group' => 'District/City', 'title' => 'Edit'],
             ['name' => 'district-delete', 'group' => 'District/City', 'title' => 'Delete'],
+            //*** Address Modules ***//
 
+            
+
+            //*** Religion and Caste Modules ***//
             ['name' => 'religion-view', 'group' => 'Religion', 'title' => 'View'],
             ['name' => 'religion-create', 'group' => 'Religion', 'title' => 'Create'],
             ['name' => 'religion-edit', 'group' => 'Religion', 'title' => 'Edit'],
@@ -748,7 +752,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'caste-create', 'group' => 'Caste', 'title' => 'Create'],
             ['name' => 'caste-edit', 'group' => 'Caste', 'title' => 'Edit'],
             ['name' => 'caste-delete', 'group' => 'Caste', 'title' => 'Delete'],
-            //*** Address Modules ***//
+            //*** Religion and Caste Modules ***//
 
 
 
