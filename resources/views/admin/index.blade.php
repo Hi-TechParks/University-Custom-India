@@ -233,7 +233,7 @@
         </div>
         @endcanany
 
-        @canany(['visitor-view', 'phone-log-view', 'enquiry-view', 'complaine-view', 'postal-exchange-view', 'meeting-view'])
+        @canany(['fees-student-report'])
         <div class="row">
             <div class="col-xl-12 col-md-12">
                 <div class="card">
@@ -578,7 +578,7 @@ $(function(){
         }
     });
 
-    // caste wise student count
+    // Caste wise student
     const ctxCaste = document.getElementById('studentsByCasteChart');
 
     new Chart(ctxCaste, {
@@ -618,7 +618,7 @@ $(function(){
         }
     });
 
-    // religion wise student count
+    // Religion wise student
     const ctxReligion = document.getElementById('studentsByReligionChart');
 
     new Chart(ctxReligion, {
