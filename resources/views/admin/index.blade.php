@@ -232,6 +232,18 @@
             </div>
         </div>
         @endcanany
+
+        @canany(['visitor-view', 'phone-log-view', 'enquiry-view', 'complaine-view', 'postal-exchange-view', 'meeting-view'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="fee-bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
         <!-- [ Main Content ] end -->
     </div>
 </div>
@@ -593,6 +605,7 @@ $(function(){
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -632,6 +645,7 @@ $(function(){
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top',
@@ -832,6 +846,66 @@ $(function(){
                     borderColor: '#37474f',
                     data: monthly_schedules,
                 }
+            ]
+        };
+        var myBarChart = new Chart(bar, {
+            type: 'bar',
+            data: calcul,
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                barValueSpacing: 100
+            }
+        });
+        // [ bar-chart ] end
+    });
+</script>
+
+
+<script type="text/javascript">
+    'use strict';
+    $(document).ready(function() {
+
+        // [ bar-chart ] start
+        var labels =  <?php echo $months ?>;
+        var monthly_categoryTotals =  <?php echo $monthly_categoryTotals ?>;
+        var monthly_programTotals =  <?php echo $monthly_programTotals ?>;
+        var monthly_facultyTotals =  <?php echo $monthly_facultyTotals ?>;
+        var monthly_semesterTotals =  <?php echo $monthly_semesterTotals ?>;
+
+        var bar = document.getElementById("fee-bar-chart").getContext('2d');
+        var calcul = {
+            labels: labels,
+            datasets: [
+                {
+                    label: '{{ trans_choice('module_student_category', 2) }}',
+                    backgroundColor: '#04a9f5',
+                    borderColor: '#04a9f5',
+                    data: monthly_categoryTotals,
+                },
+                {
+                    label: '{{ trans_choice('module_program', 2) }}',
+                    backgroundColor: '#1de9b6',
+                    borderColor: '#1de9b6',
+                    data: monthly_programTotals,
+                },
+                {
+                    label: '{{ trans_choice('module_faculty', 2) }}',
+                    backgroundColor: '#3ebfea',
+                    borderColor: '#3ebfea',
+                    data: monthly_facultyTotals,
+                },
+                {
+                    label: '{{ trans_choice('module_semester', 2) }}',
+                    backgroundColor: '#f4c22b',
+                    borderColor: '#f4c22b',
+                    data: monthly_semesterTotals,
+                },
             ]
         };
         var myBarChart = new Chart(bar, {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\MeetingSchedule;
 use App\Models\PostalExchange;
 use App\Models\FeesCategory;
@@ -159,7 +160,7 @@ class DashboardController extends Controller
 			$monthly_schedules[] = MeetingSchedule::whereYear('date', $year)->whereMonth('date', $f)->count();
 		}
 
-		
+
 
         // Category wise student
         $data['studentCategoryData'] = Student::selectRaw('category_id, COUNT(*) as total')
@@ -203,6 +204,64 @@ class DashboardController extends Controller
             ->get();
 
 
-      	return view($this->view.'.index', $data)->with('months', json_encode($months,JSON_NUMERIC_CHECK))->with('fees', json_encode($fees,JSON_NUMERIC_CHECK))->with('expenses', json_encode($expenses, JSON_NUMERIC_CHECK))->with('incomes', json_encode($incomes, JSON_NUMERIC_CHECK))->with('salaries', json_encode($salaries, JSON_NUMERIC_CHECK))->with('student_fee', json_encode($student_fee, JSON_NUMERIC_CHECK))->with('discounts', json_encode($discounts, JSON_NUMERIC_CHECK))->with('fines', json_encode($fines, JSON_NUMERIC_CHECK))->with('fee_paid', json_encode($fee_paid, JSON_NUMERIC_CHECK))->with('net_salary', json_encode($net_salary, JSON_NUMERIC_CHECK))->with('total_tax', json_encode($total_tax, JSON_NUMERIC_CHECK))->with('total_deduction', json_encode($total_deduction, JSON_NUMERIC_CHECK))->with('total_allowance', json_encode($total_allowance, JSON_NUMERIC_CHECK))->with('monthly_visitors', json_encode($monthly_visitors,JSON_NUMERIC_CHECK))->with('monthly_phone_logs', json_encode($monthly_phone_logs,JSON_NUMERIC_CHECK))->with('monthly_enqueries', json_encode($monthly_enqueries,JSON_NUMERIC_CHECK))->with('monthly_complains', json_encode($monthly_complains,JSON_NUMERIC_CHECK))->with('monthly_postals', json_encode($monthly_postals,JSON_NUMERIC_CHECK))->with('monthly_schedules', json_encode($monthly_schedules,JSON_NUMERIC_CHECK));
+        //Bar Chart
+		$monthly_categoryTotals = [];
+		$monthly_programTotals = [];
+		$monthly_facultyTotals = [];
+		$monthly_semesterTotals = [];
+
+        for($m=1; $m<=$month; $m++){
+            $monthly_categoryTotals[] = Fee::with('category')
+                ->where('status', 1)
+                ->whereYear('pay_date', $year)
+                ->whereMonth('pay_date', $m)
+                ->select('category_id', DB::raw('SUM(fee_amount) as total_fee'))
+                ->groupBy('category_id')
+                ->get();
+        }
+
+        for($m = 1; $m <= $month; $m++){
+            $monthly_programTotals[] = Fee::join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+                ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
+                ->where('fees.status', 1)
+                ->whereYear('fees.pay_date', $year)
+                ->whereMonth('fees.pay_date', $m)
+                ->select('programs.id as program_id', 'programs.title as program_title', DB::raw('SUM(fees.fee_amount) as total_fee'))
+                ->groupBy('programs.id', 'programs.title')
+                ->get();
+        }
+
+        for($m = 1; $m <= $month; $m++){
+            $monthly_facultyTotals[] = Fee::join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+                ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
+                ->join('faculties', 'programs.faculty_id', '=', 'faculties.id')
+                ->where('fees.status', 1)
+                ->whereYear('fees.pay_date', $year)
+                ->whereMonth('fees.pay_date', $m)
+                ->select(
+                    'faculties.id as faculty_id',
+                    'faculties.title as faculty_title',
+                    DB::raw('SUM(fees.fee_amount) as total_fee')
+                )
+                ->groupBy('faculties.id', 'faculties.title')
+                ->get();
+        }
+
+        for($m = 1; $m <= $month; $m++){
+            $monthly_semesterTotals[] = Fee::join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+                ->join('semesters', 'student_enrolls.semester_id', '=', 'semesters.id')
+                ->where('fees.status', 1)
+                ->whereYear('fees.pay_date', $year)
+                ->whereMonth('fees.pay_date', $m)
+                ->select(
+                    'semesters.id as semester_id',
+                    'semesters.title as semester_title',
+                    DB::raw('SUM(fees.fee_amount) as total_fee')
+                )
+                ->groupBy('semesters.id', 'semesters.title')
+                ->get();
+        }
+
+      	return view($this->view.'.index', $data)->with('months', json_encode($months,JSON_NUMERIC_CHECK))->with('fees', json_encode($fees,JSON_NUMERIC_CHECK))->with('expenses', json_encode($expenses, JSON_NUMERIC_CHECK))->with('incomes', json_encode($incomes, JSON_NUMERIC_CHECK))->with('salaries', json_encode($salaries, JSON_NUMERIC_CHECK))->with('student_fee', json_encode($student_fee, JSON_NUMERIC_CHECK))->with('discounts', json_encode($discounts, JSON_NUMERIC_CHECK))->with('fines', json_encode($fines, JSON_NUMERIC_CHECK))->with('fee_paid', json_encode($fee_paid, JSON_NUMERIC_CHECK))->with('net_salary', json_encode($net_salary, JSON_NUMERIC_CHECK))->with('total_tax', json_encode($total_tax, JSON_NUMERIC_CHECK))->with('total_deduction', json_encode($total_deduction, JSON_NUMERIC_CHECK))->with('total_allowance', json_encode($total_allowance, JSON_NUMERIC_CHECK))->with('monthly_visitors', json_encode($monthly_visitors,JSON_NUMERIC_CHECK))->with('monthly_phone_logs', json_encode($monthly_phone_logs,JSON_NUMERIC_CHECK))->with('monthly_enqueries', json_encode($monthly_enqueries,JSON_NUMERIC_CHECK))->with('monthly_complains', json_encode($monthly_complains,JSON_NUMERIC_CHECK))->with('monthly_postals', json_encode($monthly_postals,JSON_NUMERIC_CHECK))->with('monthly_schedules', json_encode($monthly_schedules,JSON_NUMERIC_CHECK))->with('monthly_categoryTotals', json_encode($monthly_categoryTotals,JSON_NUMERIC_CHECK))->with('monthly_programTotals', json_encode($monthly_programTotals,JSON_NUMERIC_CHECK))->with('monthly_facultyTotals', json_encode($monthly_facultyTotals,JSON_NUMERIC_CHECK))->with('monthly_semesterTotals', json_encode($monthly_semesterTotals,JSON_NUMERIC_CHECK));
    	}
 }
