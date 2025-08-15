@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Flasher\Laravel\Facade\Flasher;
 use Illuminate\Support\Facades\DB;
+use App\Models\StudentCategory;
 use App\Models\StudentRelative;
 use App\Models\StudentTransfer;
 use App\Models\TransferCreadit;
@@ -17,12 +18,14 @@ use Illuminate\Http\Request;
 use App\Traits\FileUploader;
 use App\Models\StatusType;
 use App\Models\Province;
+use App\Models\Religion;
 use App\Models\Semester;
 use App\Models\Document;
 use App\Models\Session;
 use App\Models\Subject;
 use App\Models\Student;
 use App\Models\Batch;
+use App\Models\Caste;
 
 class StudentTransferInController extends Controller
 {
@@ -89,6 +92,9 @@ class StudentTransferInController extends Controller
         $data['provinces'] = Province::where('status', '1')->orderBy('title', 'asc')->get();
         $data['subjects'] = Subject::where('status', '1')->orderBy('code', 'asc')->get();
         $data['statuses'] = StatusType::where('status', '1')->get();
+        $data['religions'] = Religion::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['castes'] = Caste::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
 
         return view($this->view.'.create', $data);
     }
@@ -120,6 +126,7 @@ class StudentTransferInController extends Controller
             'transfer_id' => 'required',
             'university_name' => 'required',
             'date' => 'required|date',
+            'category' => 'required',
         ]);
 
         // Random Password
@@ -131,6 +138,7 @@ class StudentTransferInController extends Controller
         $student->student_id = $request->student_id;
         $student->batch_id = $request->batch;
         $student->program_id = $request->program;
+        $student->category_id = $request->category;
         $student->admission_date = $request->admission_date;
 
         $student->first_name = $request->first_name;
@@ -158,8 +166,8 @@ class StudentTransferInController extends Controller
         $student->phone = $request->phone;
         $student->emergency_phone = $request->emergency_phone;
 
-        $student->religion = $request->religion;
-        $student->caste = $request->caste;
+        $student->religion_id = $request->religion;
+        $student->caste_id = $request->caste;
         $student->mother_tongue = $request->mother_tongue;
         $student->marital_status = $request->marital_status;
         $student->blood_group = $request->blood_group;

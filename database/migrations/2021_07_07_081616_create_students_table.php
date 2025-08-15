@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->integer('batch_id')->unsigned()->nullable();
             $table->integer('program_id')->unsigned()->nullable();
             $table->date('admission_date')->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
 
             $table->string('first_name');
             $table->string('last_name');
@@ -52,7 +53,6 @@ class CreateStudentsTable extends Migration
 
             $table->integer('religion_id')->unsigned()->nullable();
             $table->integer('caste_id')->unsigned()->nullable();
-            $table->integer('category_id')->unsigned()->nullable();
             $table->string('mother_tongue')->nullable();
             $table->tinyInteger('marital_status')->nullable();
             $table->tinyInteger('blood_group')->nullable();

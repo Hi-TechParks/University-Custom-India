@@ -160,7 +160,7 @@
                             <div class="form-group col-md-6">
                                 <label for="religion">{{ __('field_religion') }}</label>
                                 <select class="form-control" name="religion" id="religion">
-                                    <option value="">{{ __('all') }}</option>
+                                    <option value="">{{ __('select') }}</option>
                                     @foreach( $religions as $religion )
                                     <option value="{{ $religion->id }}" @if($row->religion_id == $religion->id) selected @endif>{{ $religion->title }}</option>
                                     @endforeach
@@ -176,7 +176,7 @@
                             <div class="form-group col-md-6">
                                 <label for="caste">{{ __('field_caste') }}</label>
                                 <select class="form-control" name="caste" id="caste">
-                                    <option value="">{{ __('all') }}</option>
+                                    <option value="">{{ __('select') }}</option>
                                     @foreach( $castes as $caste )
                                     <option value="{{ $caste->id }}" @if($row->caste_id == $caste->id) selected @endif>{{ $caste->title }}</option>
                                     @endforeach
@@ -187,20 +187,6 @@
                                 </div>
                             </div>
                             @endif
-
-                            <div class="form-group col-md-6">
-                                <label for="category">{{ __('field_student') }} {{ __('field_category') }} <span>*</span></label>
-                                <select class="form-control" name="category" id="category" required>
-                                    <option value="">{{ __('all') }}</option>
-                                    @foreach( $categories as $category )
-                                    <option value="{{ $category->id }}" @if($row->category_id == $category->id) selected @endif>{{ $category->title }}</option>
-                                    @endforeach
-                                </select>
-
-                                <div class="invalid-feedback">
-                                    {{ __('required_field') }} {{ __('field_student') }} {{ __('field_category') }}
-                                </div>
-                            </div>
 
                             @if(field('student_mother_tongue')->status == 1)
                             <div class="form-group col-md-6">
@@ -487,6 +473,20 @@
 
                                 <div class="invalid-feedback">
                                   {{ __('required_field') }} {{ __('field_section') }}
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="category">{{ __('field_category') }} <span>*</span></label>
+                                <select class="form-control" name="category" id="category" required>
+                                    <option value="">{{ __('select') }}</option>
+                                    @foreach( $categories as $category )
+                                    <option value="{{ $category->id }}" @if($row->category_id == $category->id) selected @endif>{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    {{ __('required_field') }} {{ __('field_category') }}
                                 </div>
                             </div>
 

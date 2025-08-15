@@ -88,6 +88,7 @@
                                         <th>{{ __('field_name') }}</th>
                                         <th>{{ __('field_gender') }}</th>
                                         <th>{{ __('field_program') }}</th>
+                                        <th>{{ __('field_category') }}</th>
                                         <th>{{ __('field_apply_date') }}</th>
                                         <th>{{ __('field_status') }}</th>
                                         <th>{{ __('field_action') }}</th>
@@ -113,6 +114,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $row->program->title ?? '' }}</td>
+                                        <td>{{ $row->category->title ?? '' }}</td>
                                         <td>
                                             @if(isset($setting->date_format))
                                             {{ date($setting->date_format, strtotime($row->apply_date)) }}
@@ -158,7 +160,7 @@
                                             @include($view.'.cancel')
                                             @endcan
                                             @endif
-                                            
+
                                             @can($access.'-delete')
                                             <button type="button" class="btn btn-icon btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $row->id }}">
                                                 <i class="fas fa-trash-alt"></i>
@@ -177,7 +179,7 @@
                 </div>
             </div>
             @endisset
-            
+
         </div>
         <!-- [ Main Content ] end -->
     </div>
