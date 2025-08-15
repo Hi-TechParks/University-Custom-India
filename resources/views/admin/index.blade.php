@@ -92,6 +92,24 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6 col-md-6 col-xl-3">
+                <div class="card theme-bg bitcoin-wallet">
+                    <div class="card-block">
+                        <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_faculty', 2) }}</h5>
+                        <h2 class="text-white mb-2 f-w-300">{{ $total_faculty->count() }}</h2>
+                        <i class="fas fa-exchange-alt f-70 text-white"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-3">
+                <div class="card theme-bg bitcoin-wallet">
+                    <div class="card-block">
+                        <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_program', 2) }}</h5>
+                        <h2 class="text-white mb-2 f-w-300">{{ $total_program->count() }}</h2>
+                        <i class="fas fa-exchange-alt f-70 text-white"></i>
+                    </div>
+                </div>
+            </div>
         </div>
 
         @canany(['fees-student-report', 'payroll-report'])
@@ -134,6 +152,33 @@
                 <div class="card">
                     <div class="card-block">
                         <canvas id="student"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['student-view'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="studentsByCategoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['student-view'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="studentsByProgramChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['student-view'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="studentsByFacultyChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -232,7 +277,7 @@
 
             data: expenses,
             }
-            
+
         ]
 
       };
@@ -379,6 +424,118 @@ $(function(){
 });
 </script>
 
+
+<script type="text/javascript">
+    // category wise student count
+    const ctxCategory = document.getElementById('studentsByCategoryChart');
+
+    new Chart(ctxCategory, {
+        type: 'pie',
+        data: {
+            labels: @json($studentCategoryData->pluck('category.title')),
+            datasets: [{
+                label: 'Students',
+                data: @json($studentCategoryData->pluck('total')),
+                backgroundColor: [
+                    '#4e73df',
+                    '#1cc88a',
+                    '#36b9cc',
+                    '#f6c23e',
+                    '#e74a3b',
+                    '#8e44ad',
+                    '#2ecc71'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '{{ trans_choice('module_student_category', 2) }}'
+            }
+            }
+        }
+    });
+
+    // program wise student count
+    const ctxProgram = document.getElementById('studentsByProgramChart');
+
+    new Chart(ctxProgram, {
+        type: 'doughnut',
+        data: {
+            labels: @json($studentProgramData->pluck('program.title')),
+            datasets: [{
+                label: 'Students',
+                data: @json($studentProgramData->pluck('total')),
+                backgroundColor: [
+                    '#2bc433',
+                    '#12a671',
+                    '#1b99ab',
+                    '#f7b40a',
+                    '#e63827',
+                    '#7f09b0',
+                    '#19b55b'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '{{ trans_choice('module_program', 2) }}'
+            }
+            }
+        }
+    });
+
+    // faculty wise student count
+    const ctxFaculty = document.getElementById('studentsByFacultyChart');
+
+    new Chart(ctxFaculty, {
+        type: 'pie',
+        data: {
+            labels: @json($studentFacultyData->pluck('faculty_name')),
+            datasets: [{
+                label: 'Students',
+                data: @json($studentFacultyData->pluck('total')),
+                backgroundColor: [
+                    '#19bf93',
+                    '#e8e81c',
+                    '#1b1bab',
+                    '#f70ac8',
+                    '#e66d27',
+                    '#b00997',
+                    '#19b521'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: '{{ trans_choice('module_faculty', 2) }}'
+            }
+            }
+        }
+    });
+</script>
+
+
 <script type="text/javascript">
     'use strict';
     $(document).ready(function() {
@@ -388,13 +545,13 @@ $(function(){
         var student = {
             labels: [
                 @foreach($programs as $program)
-                '{{ $program->shortcode }}', 
+                '{{ $program->shortcode }}',
                 @endforeach
             ],
             datasets: [{
                 data: [
                 @foreach($programs as $program)
-                {{ $program->students->where('status', '1')->count() }}, 
+                {{ $program->students->where('status', '1')->count() }},
                 @endforeach
                 ],
                 backgroundColor: [
@@ -432,13 +589,13 @@ $(function(){
         var feesType = {
             labels: [
                 @foreach($fees_types as $fees_type)
-                '{{ $fees_type->title }}', 
+                '{{ $fees_type->title }}',
                 @endforeach
             ],
             datasets: [{
                 data: [
                 @foreach($fees_types as $fees_type)
-                {{ $fees_type->fees->where('status', '1')->sum('paid_amount') }}, 
+                {{ $fees_type->fees->where('status', '1')->sum('paid_amount') }},
                 @endforeach
                 ],
                 backgroundColor: [
@@ -476,13 +633,13 @@ $(function(){
         var inventory = {
             labels: [
                 @foreach($item_types as $item_type)
-                '{{ $item_type->title }}', 
+                '{{ $item_type->title }}',
                 @endforeach
             ],
             datasets: [{
                 data: [
                 @foreach($item_types as $item_type)
-                {{ $item_type->items->where('status', '1')->count() }}, 
+                {{ $item_type->items->where('status', '1')->count() }},
                 @endforeach
                 ],
                 backgroundColor: [

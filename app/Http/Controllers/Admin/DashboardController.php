@@ -16,6 +16,7 @@ use App\Models\Enquiry;
 use App\Models\Payroll;
 use App\Models\Student;
 use App\Models\Program;
+use App\Models\Faculty;
 use App\Models\Income;
 use App\Models\Book;
 use App\Models\Fee;
@@ -62,6 +63,8 @@ class DashboardController extends Controller
 		$data['active_students'] = Student::where('status', '1')->get();
 		$data['active_staffs'] = User::where('status', '1')->get();
 		$data['library_books'] = Book::where('status', '1')->get();
+        $data['total_faculty'] = Faculty::where('status', '1')->get();
+        $data['total_program'] = Program::where('status', '1')->get();
 
 		$data['daily_visitors'] = Visitor::where('date', $today_date)->where('status', '1')->get();
 		$data['daily_phone_logs'] = PhoneLog::where('date', $today_date)->where('status', '1')->get();
@@ -155,6 +158,32 @@ class DashboardController extends Controller
 		for($f = 1; $f <= $month; $f++){
 			$monthly_schedules[] = MeetingSchedule::whereYear('date', $year)->whereMonth('date', $f)->count();
 		}
+
+        // category wise student count
+        $data['studentCategoryData'] = Student::selectRaw('category_id, COUNT(*) as total')
+            ->groupBy('category_id')
+            ->with('category') // relationship
+            ->get();
+
+        // program wise student count
+        $data['studentProgramData'] = Student::selectRaw('program_id, COUNT(*) as total')
+            ->groupBy('program_id')
+            ->with('program')
+            ->get();
+
+        // faculty wise student count
+        $data['studentFacultyData'] = Student::with('program.faculty')
+            ->get()
+            ->groupBy(function($student) {
+                return $student->program->faculty->id ?? null; //
+            })
+            ->map(function($students, $faculty_id) {
+                return [
+                    'faculty_id' => $faculty_id,
+                    'faculty_name' => $students->first()->program->faculty->title ?? 'No Faculty',
+                    'total' => $students->count()
+                ];
+            })->values();
 
 
       	return view($this->view.'.index', $data)->with('months', json_encode($months,JSON_NUMERIC_CHECK))->with('fees', json_encode($fees,JSON_NUMERIC_CHECK))->with('expenses', json_encode($expenses, JSON_NUMERIC_CHECK))->with('incomes', json_encode($incomes, JSON_NUMERIC_CHECK))->with('salaries', json_encode($salaries, JSON_NUMERIC_CHECK))->with('student_fee', json_encode($student_fee, JSON_NUMERIC_CHECK))->with('discounts', json_encode($discounts, JSON_NUMERIC_CHECK))->with('fines', json_encode($fines, JSON_NUMERIC_CHECK))->with('fee_paid', json_encode($fee_paid, JSON_NUMERIC_CHECK))->with('net_salary', json_encode($net_salary, JSON_NUMERIC_CHECK))->with('total_tax', json_encode($total_tax, JSON_NUMERIC_CHECK))->with('total_deduction', json_encode($total_deduction, JSON_NUMERIC_CHECK))->with('total_allowance', json_encode($total_allowance, JSON_NUMERIC_CHECK))->with('monthly_visitors', json_encode($monthly_visitors,JSON_NUMERIC_CHECK))->with('monthly_phone_logs', json_encode($monthly_phone_logs,JSON_NUMERIC_CHECK))->with('monthly_enqueries', json_encode($monthly_enqueries,JSON_NUMERIC_CHECK))->with('monthly_complains', json_encode($monthly_complains,JSON_NUMERIC_CHECK))->with('monthly_postals', json_encode($monthly_postals,JSON_NUMERIC_CHECK))->with('monthly_schedules', json_encode($monthly_schedules,JSON_NUMERIC_CHECK));

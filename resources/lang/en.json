@@ -701,6 +701,7 @@
     "field_vision_title" : "Vision Title",
     "field_vision_desc" : "Vision Descripton",
     "field_icon" : "Icon",
+    "field_no_of": "No. Of",
 
 
     "field_mail_driver" : "Mail Driver",

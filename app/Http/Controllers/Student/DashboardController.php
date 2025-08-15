@@ -13,7 +13,6 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     protected $title, $route, $view, $path;
-    
     /**
      * Create a new controller instance.
      *
