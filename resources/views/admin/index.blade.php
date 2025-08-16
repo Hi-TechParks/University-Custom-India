@@ -877,6 +877,7 @@ $(function(){
         var monthly_programTotals =  <?php echo $monthly_programTotals ?>;
         var monthly_facultyTotals =  <?php echo $monthly_facultyTotals ?>;
         var monthly_semesterTotals =  <?php echo $monthly_semesterTotals ?>;
+        var monthly_batchTotals =  <?php echo $monthly_batchTotals ?>;
 
         var bar = document.getElementById("fee-bar-chart").getContext('2d');
         var calcul = {
@@ -905,6 +906,12 @@ $(function(){
                     backgroundColor: '#f4c22b',
                     borderColor: '#f4c22b',
                     data: monthly_semesterTotals,
+                },
+                {
+                    label: '{{ trans_choice('module_batch', 2) }}',
+                    backgroundColor: '#37474f',
+                    borderColor: '#37474f',
+                    data: monthly_batchTotals,
                 },
             ]
         };
