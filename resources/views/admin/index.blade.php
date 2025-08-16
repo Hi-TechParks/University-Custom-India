@@ -1121,12 +1121,12 @@ new Chart(ctx, {
         labels: facultyLabels,
         datasets: [
             {
-                label: 'Paid Fees',
+                label: '{{__('field_paid_amount')}}',
                 data: paidData,
                 backgroundColor: 'rgba(54, 162, 235, 0.7)',
             },
             {
-                label: 'Pending Fees',
+                label: '{{__('field_pending_amount')}}',
                 data: pendingData,
                 backgroundColor: 'rgba(255, 99, 132, 0.7)',
             }
@@ -1186,12 +1186,12 @@ new Chart(ctx, {
             labels: programLabels,
             datasets: [
                 {
-                    label: 'Paid Fees',
+                    label: '{{__('field_paid_amount')}}',
                     data: paidData,
                     backgroundColor: 'rgba(54, 162, 235, 0.7)',
                 },
                 {
-                    label: 'Pending Fees',
+                    label: '{{__('field_pending_amount')}}',
                     data: pendingData,
                     backgroundColor: 'rgba(255, 99, 132, 0.7)',
                 }

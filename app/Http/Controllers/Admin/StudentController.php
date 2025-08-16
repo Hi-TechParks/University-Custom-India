@@ -116,6 +116,12 @@ class StudentController extends Controller
         else{
             $data['selected_section'] = $section = '0';
         }
+        if(!empty($request->category) || $request->category != null){
+            $data['selected_category'] = $category = $request->category;
+        }
+        else{
+            $data['selected_category'] = $category = '0';
+        }
 
         if(!empty($request->status) || $request->status != null){
             $data['selected_status'] = $status = $request->status;
@@ -135,6 +141,7 @@ class StudentController extends Controller
         // Search Filter
         $data['faculties'] = Faculty::where('status', '1')->orderBy('title', 'asc')->get();
         $data['statuses'] = StatusType::where('status', '1')->orderBy('title', 'asc')->get();
+        $data['categories'] = StudentCategory::where('status', '1')->orderBy('title', 'asc')->get();
 
 
         if(!empty($request->faculty) && $request->faculty != '0'){
@@ -185,6 +192,11 @@ class StudentController extends Controller
                 $query->where('section_id', $section);
                 }
             });
+            if(!empty($request->category)){
+                $students->whereHas('category', function($query) use ($request){
+                    $query->where('category_id', $request->category);
+                });
+            }
             if(!empty($request->status)){
                 $students->with('statuses')->whereHas('statuses', function ($query) use ($status){
                     $query->where('status_type_id', $status);

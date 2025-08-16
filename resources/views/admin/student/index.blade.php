@@ -32,12 +32,27 @@
                         @endcan
                         @endisset
                     </div>
-                    
+
                     <div class="card-block">
                         <form class="needs-validation" novalidate method="get" action="{{ route($route.'.index') }}">
                             <div class="row gx-2">
                                 @include('common.inc.student_search_filter')
 
+                                <div class="form-group col-md-3">
+                                    <label for="category">{{ __('field_category') }}</label>
+                                    <select class="form-control category" name="category" id="category">
+                                        <option value="0">{{ __('all') }}</option>
+                                        @if(isset($categories))
+                                        @foreach( $categories->sortBy('title') as $category )
+                                        <option value="{{ $category->id }}" @if( $selected_category == $category->id) selected @endif>{{ $category->title }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        {{ __('required_field') }} {{ __('field_category') }}
+                                    </div>
+                                </div>
                                 <div class="form-group col-md-3">
                                     <label for="status">{{ __('field_status') }}</label>
                                     <select class="form-control" name="status" id="status" required>
@@ -89,6 +104,7 @@
                                         <th>{{ __('field_session') }}</th>
                                         <th>{{ __('field_semester') }}</th>
                                         <th>{{ __('field_section') }}</th>
+                                        <th>{{ __('field_category') }}</th>
                                         <th>{{ __('field_status') }}</th>
                                         {{-- <th>{{ __('field_login') }}</th> --}}
                                         <th>{{ __('field_action') }}</th>
@@ -117,6 +133,7 @@
                                         <td>{{ $enroll->session->title ?? '' }}</td>
                                         <td>{{ $enroll->semester->title ?? '' }}</td>
                                         <td>{{ $enroll->section->title ?? '' }}</td>
+                                        <td>{{ $row->category->title ?? '' }}</td>
                                         <td>
                                             @foreach($row->statuses as $key => $status)
                                             <span class="badge badge-primary">{{ $status->title }}</span><br>
@@ -147,7 +164,7 @@
                                             <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-envelope"></i> {{ __('field_password') }}</button>
                                             </form>
                                             <br/>
-                                            
+
                                             <a href="{{ route($route.'.show', $row->id) }}" class="btn btn-icon btn-success btn-sm">
                                                 <i class="fas fa-eye"></i>
                                             </a>
@@ -174,7 +191,7 @@
                                             <!-- Include Password Change modal -->
                                             @include($view.'.password-change')
                                             @endcan
-                                            
+
                                             @can($access.'-delete')
                                             <button type="button" class="btn btn-icon btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $row->id }}">
                                                 <i class="fas fa-trash-alt"></i>
@@ -193,7 +210,7 @@
                 </div>
             </div>
             @endisset
-            
+
         </div>
         <!-- [ Main Content ] end -->
     </div>
