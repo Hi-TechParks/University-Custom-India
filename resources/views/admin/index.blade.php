@@ -268,6 +268,30 @@
             </div>
         </div>
         @endcanany
+
+        @canany(['fees-student-report'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="facultyFeeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
+
+        @canany(['fees-student-report'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="programFeeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
         <!-- [ Main Content ] end -->
     </div>
 </div>
@@ -1080,5 +1104,124 @@ $(function(){
             }
         });
     });
+</script>
+
+// faculty wise paid and pending comparison
+<script type="text/javascript">
+    'use strict';
+    $(document).ready(function() {
+var facultyLabels = @json($facultyFees->pluck('faculty_title'));
+var paidData = @json($facultyFees->pluck('total_paid'));
+var pendingData = @json($facultyFees->pluck('total_pending'));
+
+const ctx = document.getElementById("facultyFeeChart").getContext("2d");
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: facultyLabels,
+        datasets: [
+            {
+                label: 'Paid Fees',
+                data: paidData,
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            },
+            {
+                label: 'Pending Fees',
+                data: pendingData,
+                backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Faculty-wise Paid vs Pending Fees'
+            },
+            legend: { position: 'top' },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' Tk';
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                },
+                ticks: {
+                    autoSkip: false,
+                    minRotation: 0
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Amount ($)'
+                }
+            }
+        }
+    }
+});
+});
+</script>
+
+// program wise paid and pending comparison
+<script type="text/javascript">
+    'use strict';
+    $(document).ready(function() {
+    var programLabels = @json($programFees->pluck('program_title'));
+    var paidData = @json($programFees->pluck('total_paid'));
+    var pendingData = @json($programFees->pluck('total_pending'));
+
+    const ctx = document.getElementById("programFeeChart").getContext("2d");
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: programLabels,
+            datasets: [
+                {
+                    label: 'Paid Fees',
+                    data: paidData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                },
+                {
+                    label: 'Pending Fees',
+                    data: pendingData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Program-wise Paid vs Pending Fees'
+                },
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' Tk';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Amount ($)' }
+                }
+            }
+        }
+    });
+
+});
 </script>
 @endsection
