@@ -244,6 +244,30 @@
             </div>
         </div>
         @endcanany
+
+        @canany(['fees-student-report'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="attendance-bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
+
+        @canany(['fees-student-report'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="paid-pending-fee-bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
         <!-- [ Main Content ] end -->
     </div>
 </div>
@@ -930,6 +954,131 @@ $(function(){
             }
         });
         // [ bar-chart ] end
+    });
+</script>
+
+<script type="text/javascript">
+    'use strict';
+    $(document).ready(function() {
+    // [ line-chart ] start
+    const datasets = [];
+
+    // Faculty datasets (circle points)
+    @foreach($daily_attendanceFaculty as $faculty => $days)
+        datasets.push({
+            label: "{{ $faculty }} (Faculty)",
+            data: [
+                @foreach($labels as $day)
+                    {{ $days[$day] ?? 0 }},
+                @endforeach
+            ],
+            borderColor: 'hsl({{ rand(0,360) }}, 70%, 50%)',
+            backgroundColor: 'rgba(0,0,0,0)',
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            fill: false
+        });
+    @endforeach
+
+    // Program datasets (rect points)
+    @foreach($daily_attendanceProgram as $program => $days)
+        datasets.push({
+            label: "{{ $program }} (Program)",
+            data: [
+                @foreach($labels as $day)
+                    {{ $days[$day] ?? 0 }},
+                @endforeach
+            ],
+            borderColor: 'hsl({{ rand(0,360) }}, 70%, 50%)',
+            backgroundColor: 'rgba(0,0,0,0)',
+            pointStyle: 'rect',
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            fill: false
+        });
+    @endforeach
+
+    const ctx = document.getElementById('attendance-bar-chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @json($labels),
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Faculty vs Program Daily Attendance Comparison'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' students';
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top'
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Day of Month'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Attendance Count'
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+        // [ bar-chart ] start
+        var labels =  <?php echo $months ?>;
+        var monthly_paidFees =  <?php echo $monthly_paidFees ?>;
+        var monthly_pendingFees =  <?php echo $monthly_pendingFees ?>;
+
+        var bar = document.getElementById("paid-pending-fee-bar-chart").getContext('2d');
+        var calcul = {
+            labels: labels,
+            datasets: [
+                {
+                    label: '{{__('field_paid_amount')}}',
+                    backgroundColor: '#04a9f5',
+                    borderColor: '#04a9f5',
+                    data: monthly_paidFees,
+                },
+                {
+                    label: '{{__('field_pending_amount')}}',
+                    backgroundColor: '#1de9b6',
+                    borderColor: '#1de9b6',
+                    data: monthly_pendingFees,
+                },
+            ]
+        };
+        var myBarChart = new Chart(bar, {
+            type: 'bar',
+            data: calcul,
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                barValueSpacing: 100
+            }
+        });
     });
 </script>
 @endsection

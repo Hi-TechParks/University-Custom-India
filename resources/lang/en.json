@@ -489,6 +489,7 @@
     "field_discount_type" : "Discount Type",
     "field_net_amount" : "Net Amount",
     "field_paid_amount" : "Paid Amount",
+    "field_pending_amount" : "Pending Amount",
     "field_fees_type" : "Fees Type",
     "field_amount_type" : "Amount Type",
     "field_fee" : "Fee",
