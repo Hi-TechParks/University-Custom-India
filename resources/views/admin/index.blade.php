@@ -219,6 +219,51 @@
                 </div>
             </div>
             @endcanany
+            @canany(['fees-student-report'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="categoryPaidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['fees-student-report'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="programPaidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['fees-student-report'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="batchPaidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['fees-student-report'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="semesterPaidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['fees-student-report'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="facultyPaidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
         </div>
 
         @canany(['visitor-view', 'phone-log-view', 'enquiry-view', 'complaine-view', 'postal-exchange-view', 'meeting-view'])
@@ -232,31 +277,28 @@
             </div>
         </div>
         @endcanany
-
         @canany(['fees-student-report'])
         <div class="row">
             <div class="col-xl-12 col-md-12">
                 <div class="card">
                     <div class="card-block">
-                        <canvas id="fee-bar-chart"></canvas>
+                        <canvas id="program-attendance-chart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
         @endcanany
-
         @canany(['fees-student-report'])
         <div class="row">
             <div class="col-xl-12 col-md-12">
                 <div class="card">
                     <div class="card-block">
-                        <canvas id="attendance-bar-chart"></canvas>
+                        <canvas id="faculty-attendance-chart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
         @endcanany
-
         @canany(['fees-student-report'])
         <div class="row">
             <div class="col-xl-12 col-md-12">
@@ -918,154 +960,6 @@ $(function(){
 <script type="text/javascript">
     'use strict';
     $(document).ready(function() {
-
-        // [ bar-chart ] start
-        var labels =  <?php echo $months ?>;
-        var monthly_categoryTotals =  <?php echo $monthly_categoryTotals ?>;
-        var monthly_programTotals =  <?php echo $monthly_programTotals ?>;
-        var monthly_facultyTotals =  <?php echo $monthly_facultyTotals ?>;
-        var monthly_semesterTotals =  <?php echo $monthly_semesterTotals ?>;
-        var monthly_batchTotals =  <?php echo $monthly_batchTotals ?>;
-
-        var bar = document.getElementById("fee-bar-chart").getContext('2d');
-        var calcul = {
-            labels: labels,
-            datasets: [
-                {
-                    label: '{{ trans_choice('module_student_category', 2) }}',
-                    backgroundColor: '#04a9f5',
-                    borderColor: '#04a9f5',
-                    data: monthly_categoryTotals,
-                },
-                {
-                    label: '{{ trans_choice('module_program', 2) }}',
-                    backgroundColor: '#1de9b6',
-                    borderColor: '#1de9b6',
-                    data: monthly_programTotals,
-                },
-                {
-                    label: '{{ trans_choice('module_faculty', 2) }}',
-                    backgroundColor: '#3ebfea',
-                    borderColor: '#3ebfea',
-                    data: monthly_facultyTotals,
-                },
-                {
-                    label: '{{ trans_choice('module_semester', 2) }}',
-                    backgroundColor: '#f4c22b',
-                    borderColor: '#f4c22b',
-                    data: monthly_semesterTotals,
-                },
-                {
-                    label: '{{ trans_choice('module_batch', 2) }}',
-                    backgroundColor: '#37474f',
-                    borderColor: '#37474f',
-                    data: monthly_batchTotals,
-                },
-            ]
-        };
-        var myBarChart = new Chart(bar, {
-            type: 'bar',
-            data: calcul,
-            options: {
-                scales: {
-                    y: {
-                        ticks: {
-                            stepSize: 1
-                        }
-                    }
-                },
-                barValueSpacing: 100
-            }
-        });
-        // [ bar-chart ] end
-    });
-</script>
-
-<script type="text/javascript">
-    'use strict';
-    $(document).ready(function() {
-    // [ line-chart ] start
-    const datasets = [];
-
-    // Faculty datasets (circle points)
-    @foreach($daily_attendanceFaculty as $faculty => $days)
-        datasets.push({
-            label: "{{ $faculty }} (Faculty)",
-            data: [
-                @foreach($labels as $day)
-                    {{ $days[$day] ?? 0 }},
-                @endforeach
-            ],
-            borderColor: 'hsl({{ rand(0,360) }}, 70%, 50%)',
-            backgroundColor: 'rgba(0,0,0,0)',
-            pointStyle: 'circle',
-            pointRadius: 5,
-            pointHoverRadius: 8,
-            fill: false
-        });
-    @endforeach
-
-    // Program datasets (rect points)
-    @foreach($daily_attendanceProgram as $program => $days)
-        datasets.push({
-            label: "{{ $program }} (Program)",
-            data: [
-                @foreach($labels as $day)
-                    {{ $days[$day] ?? 0 }},
-                @endforeach
-            ],
-            borderColor: 'hsl({{ rand(0,360) }}, 70%, 50%)',
-            backgroundColor: 'rgba(0,0,0,0)',
-            pointStyle: 'rect',
-            pointRadius: 5,
-            pointHoverRadius: 8,
-            fill: false
-        });
-    @endforeach
-
-    const ctx = document.getElementById('attendance-bar-chart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: @json($labels),
-            datasets: datasets
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Faculty vs Program Daily Attendance Comparison'
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' students';
-                        }
-                    }
-                },
-                legend: {
-                    position: 'top'
-                }
-            },
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Day of Month'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Attendance Count'
-                    },
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
         // [ bar-chart ] start
         var labels =  <?php echo $months ?>;
         var monthly_paidFees =  <?php echo $monthly_paidFees ?>;
@@ -1143,7 +1037,7 @@ new Chart(ctx, {
             tooltip: {
                 callbacks: {
                     label: function(tooltipItem) {
-                        return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' Tk';
+                        return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' $';
                     }
                 }
             }
@@ -1208,7 +1102,7 @@ new Chart(ctx, {
                 tooltip: {
                     callbacks: {
                         label: function(tooltipItem) {
-                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' Tk';
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' $';
                         }
                     }
                 }
@@ -1224,4 +1118,365 @@ new Chart(ctx, {
 
 });
 </script>
+
+
+<script type="text/javascript">
+    'use strict';
+    $(document).ready(function(){
+
+// category-wise Paid Amount
+var ctx = document.getElementById("categoryPaidChart").getContext('2d');
+
+var categoryData = {
+    labels: [
+        @foreach($categoryFeeData as $data)
+            '{{ $data->category_title }}',
+        @endforeach
+    ],
+    datasets: [{
+        data: [
+            @foreach($categoryFeeData as $data)
+                {{ $data->total_paid }},
+            @endforeach
+        ],
+        backgroundColor: [
+            "#1de9b6",
+            "#899FD4",
+            "#04a9f5",
+            "#2f4858",
+            "#386c5f",
+            "#a2b455",
+            "#daeb89",
+            "#7a91fb",
+            "#b0ec8f",
+            "#fa7239"
+        ]
+    }]
+};
+
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: categoryData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Category-wise Paid Amount'
+            },
+            legend: {
+                position: 'top'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return '$ ' + context.formattedValue;
+                    }
+                }
+            }
+        }
+    }
+  });
+
+
+
+// Program-wise Paid Amount
+var ctx = document.getElementById("programPaidChart").getContext('2d');
+
+var programData = {
+    labels: [
+        @foreach($programFeeData as $data)
+            '{{ $data->program_title }}',
+        @endforeach
+    ],
+    datasets: [{
+        data: [
+            @foreach($programFeeData as $data)
+                {{ $data->total_paid }},
+            @endforeach
+        ],
+        backgroundColor: [
+            "#1de9b6",
+            "#899FD4",
+            "#04a9f5",
+            "#2f4858",
+            "#386c5f",
+            "#a2b455",
+            "#daeb89",
+            "#7a91fb",
+            "#b0ec8f",
+            "#fa7239"
+        ]
+    }]
+};
+
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: programData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Program-wise Paid Amount'
+            },
+            legend: {
+                position: 'top'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return '$ ' + context.formattedValue;
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Batch-wise Paid Amount
+var ctx = document.getElementById("batchPaidChart").getContext('2d');
+
+var batchData = {
+    labels: [
+        @foreach($batchFeeData as $data)
+            '{{ $data->batch_title }}',
+        @endforeach
+    ],
+    datasets: [{
+        data: [
+            @foreach($batchFeeData as $data)
+                {{ $data->total_paid }},
+            @endforeach
+        ],
+        backgroundColor: [
+            "#1de9b6",
+            "#899FD4",
+            "#04a9f5",
+            "#2f4858",
+            "#386c5f",
+            "#a2b455",
+            "#daeb89",
+            "#7a91fb",
+            "#b0ec8f",
+            "#fa7239"
+        ]
+    }]
+};
+
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: batchData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Batch-wise Paid Amount'
+            },
+            legend: {
+                position: 'top'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return '$ ' + context.formattedValue;
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Semester-wise Paid Amount
+var ctx = document.getElementById("semesterPaidChart").getContext('2d');
+
+var semesterData = {
+    labels: [
+        @foreach($semesterFeeData as $data)
+            '{{ $data->semester_title }}',
+        @endforeach
+    ],
+    datasets: [{
+        data: [
+            @foreach($semesterFeeData as $data)
+                {{ $data->total_paid }},
+            @endforeach
+        ],
+        backgroundColor: [
+            "#1de9b6",
+            "#899FD4",
+            "#04a9f5",
+            "#2f4858",
+            "#386c5f",
+            "#a2b455",
+            "#daeb89",
+            "#7a91fb",
+            "#b0ec8f",
+            "#fa7239"
+        ]
+    }]
+};
+
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: semesterData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Semester-wise Paid Amount'
+            },
+            legend: {
+                position: 'top'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return '$ ' + context.formattedValue;
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Faculty-wise Paid Amount
+var ctx = document.getElementById("facultyPaidChart").getContext('2d');
+
+var facultyData = {
+    labels: [
+        @foreach($facultyFeeData as $data)
+            '{{ $data->faculty_title }}',
+        @endforeach
+    ],
+    datasets: [{
+        data: [
+            @foreach($facultyFeeData as $data)
+                {{ $data->total_paid }},
+            @endforeach
+        ],
+        backgroundColor: [
+            "#1de9b6",
+            "#899FD4",
+            "#04a9f5",
+            "#2f4858",
+            "#386c5f",
+            "#a2b455",
+            "#daeb89",
+            "#7a91fb",
+            "#b0ec8f",
+            "#fa7239"
+        ]
+    }]
+};
+
+var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: facultyData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Faculty-wise Paid Amount'
+            },
+            legend: {
+                position: 'top'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return '$ ' + context.formattedValue;
+                    }
+                }
+            }
+        }
+    }
+});
+});
+</script>
+
+
+<script type="text/javascript">
+    'use strict';
+    $(document).ready(function(){
+    const labels = @json($labels);
+
+    // Program datasets
+    const programDatasets = [];
+    @foreach($daily_attendanceProgram as $program => $days)
+        programDatasets.push({
+            label: "{{ $program }}",
+            data: [
+                @foreach($labels as $day)
+                    {{ $days[$day] ?? 0 }},
+                @endforeach
+            ],
+            backgroundColor: 'hsl({{ rand(0,360) }}, 70%, 50%)'
+        });
+    @endforeach
+
+    // Faculty datasets
+    const facultyDatasets = [];
+    @foreach($daily_attendanceFaculty as $faculty => $days)
+        facultyDatasets.push({
+            label: "{{ $faculty }}",
+            data: [
+                @foreach($labels as $day)
+                    {{ $days[$day] ?? 0 }},
+                @endforeach
+            ],
+            backgroundColor: 'hsl({{ rand(0,360) }}, 70%, 50%)'
+        });
+    @endforeach
+
+    // Program Chart
+    new Chart(document.getElementById('program-attendance-chart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: programDatasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: { display: true, text: 'Daily Attendance - Program' },
+                legend: { position: 'top' }
+            },
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Attendance Count' } },
+                x: { title: { display: true, text: 'Day of Month' } }
+            }
+        }
+    });
+
+    // Faculty Chart
+    new Chart(document.getElementById('faculty-attendance-chart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: facultyDatasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: { display: true, text: 'Daily Attendance - Faculty' },
+                legend: { position: 'top' }
+            },
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Attendance Count' } },
+                x: { title: { display: true, text: 'Day of Month' } }
+            }
+        }
+    });
+});
+</script>
+
 @endsection
