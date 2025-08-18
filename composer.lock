@@ -8073,16 +8073,16 @@
         },
         {
             "name": "twilio/sdk",
-            "version": "8.7.0",
+            "version": "8.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twilio/twilio-php",
-                "reference": "88b8c4e82943267106424f903ffa881b0fd9074b"
+                "reference": "fa2c08f15c6f212de0ec007c175edf5eff7c7d7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/88b8c4e82943267106424f903ffa881b0fd9074b",
-                "reference": "88b8c4e82943267106424f903ffa881b0fd9074b",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/fa2c08f15c6f212de0ec007c175edf5eff7c7d7b",
+                "reference": "fa2c08f15c6f212de0ec007c175edf5eff7c7d7b",
                 "shasum": ""
             },
             "require": {
@@ -8119,7 +8119,7 @@
                 "sms",
                 "twilio"
             ],
-            "time": "2025-07-24T08:04:30+00:00"
+            "time": "2025-08-18T09:05:26+00:00"
         },
         {
             "name": "unicodeveloper/laravel-paystack",
@@ -9584,16 +9584,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.51",
+            "version": "10.5.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ace160e31aaa317a99c411410c40c502b4be42a4"
+                "reference": "5be558244941fba07788b6bb42dc5fc84429580c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ace160e31aaa317a99c411410c40c502b4be42a4",
-                "reference": "ace160e31aaa317a99c411410c40c502b4be42a4",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5be558244941fba07788b6bb42dc5fc84429580c",
+                "reference": "5be558244941fba07788b6bb42dc5fc84429580c",
                 "shasum": ""
             },
             "require": {
@@ -9665,7 +9665,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.51"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.52"
             },
             "funding": [
                 {
@@ -9689,7 +9689,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-12T07:31:25+00:00"
+            "time": "2025-08-16T05:17:33+00:00"
         },
         {
             "name": "sebastian/cli-parser",

@@ -126,8 +126,6 @@ class DashboardController extends Controller
 
 
 		// Doughnut Chart
-		$data['programs'] = Program::where('status', '1')
-								->orderBy('title', 'asc')->get();
 		$data['fees_types'] = FeesCategory::where('status', '1')
 								->orderBy('title', 'asc')->get();
 		$data['item_types'] = ItemCategory::where('status', '1')
@@ -204,7 +202,7 @@ class DashboardController extends Controller
             ->get();
 
 
-        //attendence comparison
+        // Attendence comparison
         $daily_attendanceProgram = [];
         $daily_attendanceFaculty = [];
         $daysInMonth = date('t');
@@ -213,9 +211,8 @@ class DashboardController extends Controller
             // Program wise
             $programs = StudentAttendance::join('student_enrolls', 'student_attendances.student_enroll_id', '=', 'student_enrolls.id')
                 ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
-                ->whereYear('student_attendances.date', $year)
-                ->whereMonth('student_attendances.date', $month)
-                ->whereDay('student_attendances.date', $d)
+                ->whereDate('student_attendances.date', "{$year}-{$month}-{$d}")
+                ->where('student_attendances.attendance', '1')
                 ->select('programs.id', 'programs.title', DB::raw('COUNT(student_attendances.id) as total_attendance'))
                 ->groupBy('programs.id', 'programs.title')
                 ->get();
@@ -228,9 +225,8 @@ class DashboardController extends Controller
             $faculties = StudentAttendance::join('student_enrolls', 'student_attendances.student_enroll_id', '=', 'student_enrolls.id')
                 ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
                 ->join('faculties', 'programs.faculty_id', '=', 'faculties.id')
-                ->whereYear('student_attendances.date', $year)
-                ->whereMonth('student_attendances.date', $month)
-                ->whereDay('student_attendances.date', $d)
+                ->whereDate('student_attendances.date', "{$year}-{$month}-{$d}")
+                ->where('student_attendances.attendance', '1')
                 ->select('faculties.id', 'faculties.title', DB::raw('COUNT(student_attendances.id) as total_attendance'))
                 ->groupBy('faculties.id', 'faculties.title')
                 ->get();
@@ -244,12 +240,12 @@ class DashboardController extends Controller
         $data['daily_attendanceFaculty'] = $daily_attendanceFaculty;
         $data['labels'] = range(1, $daysInMonth);
 
-        
+
         // Total fees
         $monthly_paidFees = [];
 		$monthly_pendingFees = [];
 
-        // all fee monthly wise paid and pending comparison
+        // Fees paid and pending comparison
         for($m = 1; $m <= $month; $m++){
 			$monthly_paidFees[] = Fee::where('status', '1')->whereYear('pay_date', $year)->whereMonth('pay_date', $m)->sum('paid_amount');
 		}
@@ -258,7 +254,9 @@ class DashboardController extends Controller
 			$monthly_pendingFees[] = Fee::where('status', '0')->whereYear('due_date', $year)->whereMonth('due_date', $m)->sum('fee_amount');
 		}
 
-        // faculty wise paid and pending comparison
+
+
+        // Faculty wise paid and pending comparison
         $data['facultyFees'] = Fee::join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
             ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
             ->join('faculties', 'programs.faculty_id', '=', 'faculties.id')
@@ -270,61 +268,66 @@ class DashboardController extends Controller
             ->groupBy('faculties.id', 'faculties.title')
             ->get();
 
-            // program wise paid and pending comparison
-            $data['programFees'] = Fee::join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
-                ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
-                ->select(
-                    'programs.title as program_title',
-                    DB::raw('SUM(CASE WHEN fees.status = 1 THEN fees.paid_amount ELSE 0 END) as total_paid'),
-                    DB::raw('SUM(CASE WHEN fees.status = 0 THEN fees.fee_amount ELSE 0 END) as total_pending')
-                )
-                ->groupBy('programs.id', 'programs.title')
-                ->get();
+        // Program wise paid and pending comparison
+        $data['programFees'] = Fee::join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+            ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
+            ->select(
+                'programs.title as program_title',
+                DB::raw('SUM(CASE WHEN fees.status = 1 THEN fees.paid_amount ELSE 0 END) as total_paid'),
+                DB::raw('SUM(CASE WHEN fees.status = 0 THEN fees.fee_amount ELSE 0 END) as total_pending')
+            )
+            ->groupBy('programs.id', 'programs.title')
+            ->get();
 
 
-            // category-wise Paid Amount
-            $data['categoryFeeData'] = Fee::selectRaw('students.category_id, student_categories.title as category_title, SUM(fees.paid_amount) as total_paid')
-                ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
-                ->join('students', 'student_enrolls.student_id', '=', 'students.id')
-                ->join('student_categories', 'students.category_id', '=', 'student_categories.id')
-                ->whereNotNull('students.category_id')
-                ->groupBy('students.category_id', 'student_categories.title')
-                ->get();
 
-            // Program-wise Paid Amount
-            $data['programFeeData'] = Fee::selectRaw('student_enrolls.program_id, programs.title as program_title, SUM(fees.paid_amount) as total_paid')
-                ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
-                ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
-                ->whereNotNull('student_enrolls.program_id')
-                ->groupBy('student_enrolls.program_id', 'programs.title')
-                ->get();
+        // Category-wise Paid Amount
+        $data['categoryFeeData'] = Fee::selectRaw('students.category_id, student_categories.title as category_title, SUM(fees.paid_amount) as total_paid')
+            ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+            ->join('students', 'student_enrolls.student_id', '=', 'students.id')
+            ->join('student_categories', 'students.category_id', '=', 'student_categories.id')
+            ->whereNotNull('students.category_id')
+            ->where('fees.status', '1')
+            ->groupBy('students.category_id', 'student_categories.title')
+            ->get();
 
-            // Batch-wise Paid Amount
-            $data['batchFeeData'] = Fee::selectRaw('students.batch_id, batches.title as batch_title, SUM(fees.paid_amount) as total_paid')
-                ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
-                ->join('students', 'student_enrolls.student_id', '=', 'students.id')
-                ->join('batches', 'students.batch_id', '=', 'batches.id')
-                ->whereNotNull('students.batch_id')
-                ->groupBy('students.batch_id', 'batches.title')
-                ->get();
+        // Program-wise Paid Amount
+        $data['programFeeData'] = Fee::selectRaw('student_enrolls.program_id, programs.title as program_title, SUM(fees.paid_amount) as total_paid')
+            ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+            ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
+            ->whereNotNull('student_enrolls.program_id')
+            ->where('fees.status', '1')
+            ->groupBy('student_enrolls.program_id', 'programs.title')
+            ->get();
 
-            // Semester-wise Paid Amount
-            $data['semesterFeeData'] = Fee::selectRaw('student_enrolls.semester_id, semesters.title as semester_title, SUM(fees.paid_amount) as total_paid')
-                ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
-                ->join('semesters', 'student_enrolls.semester_id', '=', 'semesters.id')
-                ->whereNotNull('student_enrolls.semester_id')
-                ->groupBy('student_enrolls.semester_id', 'semesters.title')
-                ->get();
+        // Batch-wise Paid Amount
+        $data['batchFeeData'] = Fee::selectRaw('students.batch_id, batches.title as batch_title, SUM(fees.paid_amount) as total_paid')
+            ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+            ->join('students', 'student_enrolls.student_id', '=', 'students.id')
+            ->join('batches', 'students.batch_id', '=', 'batches.id')
+            ->whereNotNull('students.batch_id')
+            ->where('fees.status', '1')
+            ->groupBy('students.batch_id', 'batches.title')
+            ->get();
 
+        // Semester-wise Paid Amount
+        $data['semesterFeeData'] = Fee::selectRaw('student_enrolls.semester_id, semesters.title as semester_title, SUM(fees.paid_amount) as total_paid')
+            ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+            ->join('semesters', 'student_enrolls.semester_id', '=', 'semesters.id')
+            ->whereNotNull('student_enrolls.semester_id')
+            ->where('fees.status', '1')
+            ->groupBy('student_enrolls.semester_id', 'semesters.title')
+            ->get();
 
-            // Faculty-wise Paid Amount
-            $data['facultyFeeData'] = Fee::selectRaw('programs.faculty_id, faculties.title as faculty_title, SUM(fees.paid_amount) as total_paid')
-                ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
-                ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
-                ->join('faculties', 'programs.faculty_id', '=', 'faculties.id')
-                ->whereNotNull('programs.faculty_id')
-                ->groupBy('programs.faculty_id', 'faculties.title')
-                ->get();
+        // Faculty-wise Paid Amount
+        $data['facultyFeeData'] = Fee::selectRaw('programs.faculty_id, faculties.title as faculty_title, SUM(fees.paid_amount) as total_paid')
+            ->join('student_enrolls', 'fees.student_enroll_id', '=', 'student_enrolls.id')
+            ->join('programs', 'student_enrolls.program_id', '=', 'programs.id')
+            ->join('faculties', 'programs.faculty_id', '=', 'faculties.id')
+            ->whereNotNull('programs.faculty_id')
+            ->where('fees.status', '1')
+            ->groupBy('programs.faculty_id', 'faculties.title')
+            ->get();
 
 
       	return view($this->view.'.index', $data)->with('months', json_encode($months,JSON_NUMERIC_CHECK))->with('fees', json_encode($fees,JSON_NUMERIC_CHECK))->with('expenses', json_encode($expenses, JSON_NUMERIC_CHECK))->with('incomes', json_encode($incomes, JSON_NUMERIC_CHECK))->with('salaries', json_encode($salaries, JSON_NUMERIC_CHECK))->with('student_fee', json_encode($student_fee, JSON_NUMERIC_CHECK))->with('discounts', json_encode($discounts, JSON_NUMERIC_CHECK))->with('fines', json_encode($fines, JSON_NUMERIC_CHECK))->with('fee_paid', json_encode($fee_paid, JSON_NUMERIC_CHECK))->with('net_salary', json_encode($net_salary, JSON_NUMERIC_CHECK))->with('total_tax', json_encode($total_tax, JSON_NUMERIC_CHECK))->with('total_deduction', json_encode($total_deduction, JSON_NUMERIC_CHECK))->with('total_allowance', json_encode($total_allowance, JSON_NUMERIC_CHECK))->with('monthly_visitors', json_encode($monthly_visitors, JSON_NUMERIC_CHECK))->with('monthly_phone_logs', json_encode($monthly_phone_logs, JSON_NUMERIC_CHECK))->with('monthly_enqueries', json_encode($monthly_enqueries, JSON_NUMERIC_CHECK))->with('monthly_complains', json_encode($monthly_complains, JSON_NUMERIC_CHECK))->with('monthly_postals', json_encode($monthly_postals, JSON_NUMERIC_CHECK))->with('monthly_schedules', json_encode($monthly_schedules, JSON_NUMERIC_CHECK))->with('monthly_paidFees', json_encode($monthly_paidFees, JSON_NUMERIC_CHECK))->with('monthly_pendingFees', json_encode($monthly_pendingFees, JSON_NUMERIC_CHECK));

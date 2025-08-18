@@ -146,30 +146,13 @@
         </div>
 
         <div class="clear-fix mt-5"></div>
+
         <div class="row">
             @canany(['student-view'])
             <div class="col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-block">
-                        <canvas id="student"></canvas>
-                    </div>
-                </div>
-            </div>
-            @endcanany
-            @canany(['student-view'])
-            <div class="col-xl-4 col-md-6">
-                <div class="card">
-                    <div class="card-block">
                         <canvas id="studentsByCategoryChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            @endcanany
-            @canany(['student-view'])
-            <div class="col-xl-4 col-md-6">
-                <div class="card">
-                    <div class="card-block">
-                        <canvas id="studentsByProgramChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -187,7 +170,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-block">
-                        <canvas id="studentsByCasteChart"></canvas>
+                        <canvas id="studentsByProgramChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -201,11 +184,11 @@
                 </div>
             </div>
             @endcanany
-            @canany(['fees-student-report'])
+            @canany(['student-view'])
             <div class="col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-block">
-                        <canvas id="feesType"></canvas>
+                        <canvas id="studentsByCasteChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -219,11 +202,72 @@
                 </div>
             </div>
             @endcanany
+        </div>
+
+        <div class="clear-fix mt-5"></div>
+
+        @canany(['visitor-view', 'phone-log-view', 'enquiry-view', 'complaine-view', 'postal-exchange-view', 'meeting-view'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="front-desk-line"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
+
+        @canany(['student-attendance-report'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="program-attendance-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
+
+        @canany(['student-attendance-report'])
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="faculty-attendance-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcanany
+
+        <div class="clear-fix mt-5"></div>
+
+        <div class="row">
+            @canany(['fees-student-report'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="feesType"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
             @canany(['fees-student-report'])
             <div class="col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-block">
                         <canvas id="categoryPaidChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            @endcanany
+            @canany(['fees-student-report'])
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <canvas id="facultyPaidChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -255,50 +299,10 @@
                 </div>
             </div>
             @endcanany
-            @canany(['fees-student-report'])
-            <div class="col-xl-4 col-md-6">
-                <div class="card">
-                    <div class="card-block">
-                        <canvas id="facultyPaidChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            @endcanany
         </div>
 
-        @canany(['visitor-view', 'phone-log-view', 'enquiry-view', 'complaine-view', 'postal-exchange-view', 'meeting-view'])
-        <div class="row">
-            <div class="col-xl-12 col-md-12">
-                <div class="card">
-                    <div class="card-block">
-                        <canvas id="front-desk-line"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endcanany
-        @canany(['fees-student-report'])
-        <div class="row">
-            <div class="col-xl-12 col-md-12">
-                <div class="card">
-                    <div class="card-block">
-                        <canvas id="program-attendance-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endcanany
-        @canany(['fees-student-report'])
-        <div class="row">
-            <div class="col-xl-12 col-md-12">
-                <div class="card">
-                    <div class="card-block">
-                        <canvas id="faculty-attendance-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endcanany
+        <div class="clear-fix mt-5"></div>
+
         @canany(['fees-student-report'])
         <div class="row">
             <div class="col-xl-12 col-md-12">
@@ -582,7 +586,7 @@ $(function(){
                 },
                 title: {
                     display: true,
-                    text: '{{ trans_choice('module_student_category', 2) }}'
+                    text: 'Students Per Category'
             }
             }
         }
@@ -592,7 +596,7 @@ $(function(){
     const ctxProgram = document.getElementById('studentsByProgramChart');
 
     new Chart(ctxProgram, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
             labels: @json($studentProgramData->pluck('program.title')),
             datasets: [{
@@ -622,7 +626,7 @@ $(function(){
                 },
                 title: {
                     display: true,
-                    text: '{{ trans_choice('module_program', 2) }}'
+                    text: 'Students Per Program'
             }
             }
         }
@@ -662,7 +666,7 @@ $(function(){
                 },
                 title: {
                     display: true,
-                    text: '{{ trans_choice('module_faculty', 2) }}'
+                    text: 'Students Per Faculty'
             }
             }
         }
@@ -672,7 +676,7 @@ $(function(){
     const ctxCaste = document.getElementById('studentsByCasteChart');
 
     new Chart(ctxCaste, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
             labels: @json($studentCasteData->pluck('caste.title')),
             datasets: [{
@@ -702,7 +706,7 @@ $(function(){
                 },
                 title: {
                     display: true,
-                    text: '{{ trans_choice('module_caste', 2) }}'
+                    text: 'Students Per Caste'
             }
             }
         }
@@ -742,7 +746,7 @@ $(function(){
                 },
                 title: {
                     display: true,
-                    text: '{{ trans_choice('module_religion', 2) }}'
+                    text: 'Students Per Religion'
             }
             }
         }
@@ -754,50 +758,6 @@ $(function(){
 <script type="text/javascript">
     'use strict';
     $(document).ready(function() {
-
-        // [ pie-chart ] start
-        var bar = document.getElementById("student").getContext('2d');
-        var student = {
-            labels: [
-                @foreach($programs as $program)
-                '{{ $program->shortcode }}',
-                @endforeach
-            ],
-            datasets: [{
-                data: [
-                @foreach($programs as $program)
-                {{ $program->students->where('status', '1')->count() }},
-                @endforeach
-                ],
-                backgroundColor: [
-                    "#1de9b6",
-                    "#899FD4",
-                    "#04a9f5",
-                    "#2f4858",
-                    "#386c5f",
-                    "#a2b455",
-                    "#daeb89",
-                    "#7a91fb",
-                    "#b0ec8f",
-                    "#fa7239"
-                ]
-            }]
-        };
-        var myPieChart = new Chart(bar, {
-            type: 'doughnut',
-            data: student,
-            responsive: true,
-            options: {
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: '{{ trans_choice('module_student', 2) }}'
-                    }
-                }
-            }
-        });
-        // [ pie-chart ] end
 
         // [ pie-chart ] start
         var bar = document.getElementById("feesType").getContext('2d');
@@ -836,7 +796,7 @@ $(function(){
                 plugins: {
                     title: {
                         display: true,
-                        text: '{{ trans_choice('module_fees_collection', 2) }}'
+                        text: 'Fees Collected Per Fees Type'
                     }
                 }
             }
@@ -872,7 +832,7 @@ $(function(){
             }]
         };
         var myPieChart = new Chart(bar, {
-            type: 'doughnut',
+            type: 'pie',
             data: inventory,
             responsive: true,
             options: {
@@ -880,7 +840,7 @@ $(function(){
                 plugins: {
                     title: {
                         display: true,
-                        text: '{{ trans_choice('module_inventory', 2) }}'
+                        text: 'Inventory Items Per Type'
                     }
                 }
             }
@@ -987,10 +947,26 @@ $(function(){
             type: 'bar',
             data: calcul,
             options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total Paid vs Pending Fees Per Month'
+                    },
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' $';
+                            }
+                        }
+                    }
+                },
                 scales: {
                     y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Amount' },
                         ticks: {
-                            stepSize: 1
+                            stepSize: 100
                         }
                     }
                 },
@@ -1000,75 +976,79 @@ $(function(){
     });
 </script>
 
-// faculty wise paid and pending comparison
-<script type="text/javascript">
-    'use strict';
-    $(document).ready(function() {
-var facultyLabels = @json($facultyFees->pluck('faculty_title'));
-var paidData = @json($facultyFees->pluck('total_paid'));
-var pendingData = @json($facultyFees->pluck('total_pending'));
 
-const ctx = document.getElementById("facultyFeeChart").getContext("2d");
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: facultyLabels,
-        datasets: [
-            {
-                label: '{{__('field_paid_amount')}}',
-                data: paidData,
-                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+<!-- Faculty wise paid and pending comparison -->
+<script type="text/javascript">
+'use strict';
+$(document).ready(function() {
+    var facultyLabels = @json($facultyFees->pluck('faculty_title'));
+    var paidData = @json($facultyFees->pluck('total_paid'));
+    var pendingData = @json($facultyFees->pluck('total_pending'));
+
+    const ctx = document.getElementById("facultyFeeChart").getContext("2d");
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: facultyLabels,
+            datasets: [
+                {
+                    label: '{{__('field_paid_amount')}}',
+                    data: paidData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                },
+                {
+                    label: '{{__('field_pending_amount')}}',
+                    data: pendingData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Faculty Wise Paid vs Pending Fees'
+                },
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' $';
+                        }
+                    }
+                }
             },
-            {
-                label: '{{__('field_pending_amount')}}',
-                data: pendingData,
-                backgroundColor: 'rgba(255, 99, 132, 0.7)',
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Faculty-wise Paid vs Pending Fees'
-            },
-            legend: { position: 'top' },
-            tooltip: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' $';
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                    },
+                    ticks: {
+                        autoSkip: false,
+                        minRotation: 0
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Amount'
+                    },
+                    ticks: {
+                        stepSize: 100
                     }
                 }
             }
-        },
-        scales: {
-            x: {
-                title: {
-                    display: true,
-                },
-                ticks: {
-                    autoSkip: false,
-                    minRotation: 0
-                }
-            },
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Amount ($)'
-                }
-            }
         }
-    }
-});
+    });
 });
 </script>
 
-// program wise paid and pending comparison
+<!-- Program wise paid and pending comparison -->
 <script type="text/javascript">
-    'use strict';
-    $(document).ready(function() {
+'use strict';
+$(document).ready(function() {
     var programLabels = @json($programFees->pluck('program_title'));
     var paidData = @json($programFees->pluck('total_paid'));
     var pendingData = @json($programFees->pluck('total_pending'));
@@ -1096,7 +1076,7 @@ new Chart(ctx, {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Program-wise Paid vs Pending Fees'
+                    text: 'Program Wise Paid vs Pending Fees'
                 },
                 legend: { position: 'top' },
                 tooltip: {
@@ -1110,300 +1090,305 @@ new Chart(ctx, {
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: 'Amount ($)' }
+                    title: { display: true, text: 'Amount' },
+                    ticks: {
+                        stepSize: 100
+                    }
                 }
             }
         }
     });
-
 });
 </script>
 
 
 <script type="text/javascript">
-    'use strict';
-    $(document).ready(function(){
+'use strict';
+$(document).ready(function(){
 
-// category-wise Paid Amount
-var ctx = document.getElementById("categoryPaidChart").getContext('2d');
+    // Category-wise Paid Amount
+    var ctx = document.getElementById("categoryPaidChart").getContext('2d');
 
-var categoryData = {
-    labels: [
-        @foreach($categoryFeeData as $data)
-            '{{ $data->category_title }}',
-        @endforeach
-    ],
-    datasets: [{
-        data: [
+    var categoryData = {
+        labels: [
             @foreach($categoryFeeData as $data)
-                {{ $data->total_paid }},
+                '{{ $data->category_title }}',
             @endforeach
         ],
-        backgroundColor: [
-            "#1de9b6",
-            "#899FD4",
-            "#04a9f5",
-            "#2f4858",
-            "#386c5f",
-            "#a2b455",
-            "#daeb89",
-            "#7a91fb",
-            "#b0ec8f",
-            "#fa7239"
-        ]
-    }]
-};
+        datasets: [{
+            data: [
+                @foreach($categoryFeeData as $data)
+                    {{ $data->total_paid }},
+                @endforeach
+            ],
+            backgroundColor: [
+                "#1de9b6",
+                "#899FD4",
+                "#04a9f5",
+                "#2f4858",
+                "#386c5f",
+                "#a2b455",
+                "#daeb89",
+                "#7a91fb",
+                "#b0ec8f",
+                "#fa7239"
+            ]
+        }]
+    };
 
-var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: categoryData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Category-wise Paid Amount'
-            },
-            legend: {
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return '$ ' + context.formattedValue;
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: categoryData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Fees Collected Per Student Category'
+                },
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$ ' + context.formattedValue;
+                        }
                     }
                 }
             }
         }
-    }
-  });
+    });
 
 
+    // Program-wise Paid Amount
+    var ctx = document.getElementById("programPaidChart").getContext('2d');
 
-// Program-wise Paid Amount
-var ctx = document.getElementById("programPaidChart").getContext('2d');
-
-var programData = {
-    labels: [
-        @foreach($programFeeData as $data)
-            '{{ $data->program_title }}',
-        @endforeach
-    ],
-    datasets: [{
-        data: [
+    var programData = {
+        labels: [
             @foreach($programFeeData as $data)
-                {{ $data->total_paid }},
+                '{{ $data->program_title }}',
             @endforeach
         ],
-        backgroundColor: [
-            "#1de9b6",
-            "#899FD4",
-            "#04a9f5",
-            "#2f4858",
-            "#386c5f",
-            "#a2b455",
-            "#daeb89",
-            "#7a91fb",
-            "#b0ec8f",
-            "#fa7239"
-        ]
-    }]
-};
+        datasets: [{
+            data: [
+                @foreach($programFeeData as $data)
+                    {{ $data->total_paid }},
+                @endforeach
+            ],
+            backgroundColor: [
+                "#1de9b6",
+                "#899FD4",
+                "#04a9f5",
+                "#2f4858",
+                "#386c5f",
+                "#a2b455",
+                "#daeb89",
+                "#7a91fb",
+                "#b0ec8f",
+                "#fa7239"
+            ]
+        }]
+    };
 
-var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: programData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Program-wise Paid Amount'
-            },
-            legend: {
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return '$ ' + context.formattedValue;
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: programData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Fees Collected Per Program'
+                },
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$ ' + context.formattedValue;
+                        }
                     }
                 }
             }
         }
-    }
-});
+    });
 
-// Batch-wise Paid Amount
-var ctx = document.getElementById("batchPaidChart").getContext('2d');
 
-var batchData = {
-    labels: [
-        @foreach($batchFeeData as $data)
-            '{{ $data->batch_title }}',
-        @endforeach
-    ],
-    datasets: [{
-        data: [
+    // Batch-wise Paid Amount
+    var ctx = document.getElementById("batchPaidChart").getContext('2d');
+
+    var batchData = {
+        labels: [
             @foreach($batchFeeData as $data)
-                {{ $data->total_paid }},
+                '{{ $data->batch_title }}',
             @endforeach
         ],
-        backgroundColor: [
-            "#1de9b6",
-            "#899FD4",
-            "#04a9f5",
-            "#2f4858",
-            "#386c5f",
-            "#a2b455",
-            "#daeb89",
-            "#7a91fb",
-            "#b0ec8f",
-            "#fa7239"
-        ]
-    }]
-};
+        datasets: [{
+            data: [
+                @foreach($batchFeeData as $data)
+                    {{ $data->total_paid }},
+                @endforeach
+            ],
+            backgroundColor: [
+                "#1de9b6",
+                "#899FD4",
+                "#04a9f5",
+                "#2f4858",
+                "#386c5f",
+                "#a2b455",
+                "#daeb89",
+                "#7a91fb",
+                "#b0ec8f",
+                "#fa7239"
+            ]
+        }]
+    };
 
-var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: batchData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Batch-wise Paid Amount'
-            },
-            legend: {
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return '$ ' + context.formattedValue;
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: batchData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Fees Collected Per Batch'
+                },
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$ ' + context.formattedValue;
+                        }
                     }
                 }
             }
         }
-    }
-});
+    });
 
-// Semester-wise Paid Amount
-var ctx = document.getElementById("semesterPaidChart").getContext('2d');
 
-var semesterData = {
-    labels: [
-        @foreach($semesterFeeData as $data)
-            '{{ $data->semester_title }}',
-        @endforeach
-    ],
-    datasets: [{
-        data: [
+    // Semester-wise Paid Amount
+    var ctx = document.getElementById("semesterPaidChart").getContext('2d');
+
+    var semesterData = {
+        labels: [
             @foreach($semesterFeeData as $data)
-                {{ $data->total_paid }},
+                '{{ $data->semester_title }}',
             @endforeach
         ],
-        backgroundColor: [
-            "#1de9b6",
-            "#899FD4",
-            "#04a9f5",
-            "#2f4858",
-            "#386c5f",
-            "#a2b455",
-            "#daeb89",
-            "#7a91fb",
-            "#b0ec8f",
-            "#fa7239"
-        ]
-    }]
-};
+        datasets: [{
+            data: [
+                @foreach($semesterFeeData as $data)
+                    {{ $data->total_paid }},
+                @endforeach
+            ],
+            backgroundColor: [
+                "#1de9b6",
+                "#899FD4",
+                "#04a9f5",
+                "#2f4858",
+                "#386c5f",
+                "#a2b455",
+                "#daeb89",
+                "#7a91fb",
+                "#b0ec8f",
+                "#fa7239"
+            ]
+        }]
+    };
 
-var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: semesterData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Semester-wise Paid Amount'
-            },
-            legend: {
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return '$ ' + context.formattedValue;
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: semesterData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Fees Collected Per Semester'
+                },
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$ ' + context.formattedValue;
+                        }
                     }
                 }
             }
         }
-    }
-});
+    });
 
-// Faculty-wise Paid Amount
-var ctx = document.getElementById("facultyPaidChart").getContext('2d');
 
-var facultyData = {
-    labels: [
-        @foreach($facultyFeeData as $data)
-            '{{ $data->faculty_title }}',
-        @endforeach
-    ],
-    datasets: [{
-        data: [
+    // Faculty-wise Paid Amount
+    var ctx = document.getElementById("facultyPaidChart").getContext('2d');
+
+    var facultyData = {
+        labels: [
             @foreach($facultyFeeData as $data)
-                {{ $data->total_paid }},
+                '{{ $data->faculty_title }}',
             @endforeach
         ],
-        backgroundColor: [
-            "#1de9b6",
-            "#899FD4",
-            "#04a9f5",
-            "#2f4858",
-            "#386c5f",
-            "#a2b455",
-            "#daeb89",
-            "#7a91fb",
-            "#b0ec8f",
-            "#fa7239"
-        ]
-    }]
-};
+        datasets: [{
+            data: [
+                @foreach($facultyFeeData as $data)
+                    {{ $data->total_paid }},
+                @endforeach
+            ],
+            backgroundColor: [
+                "#1de9b6",
+                "#899FD4",
+                "#04a9f5",
+                "#2f4858",
+                "#386c5f",
+                "#a2b455",
+                "#daeb89",
+                "#7a91fb",
+                "#b0ec8f",
+                "#fa7239"
+            ]
+        }]
+    };
 
-var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: facultyData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Faculty-wise Paid Amount'
-            },
-            legend: {
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return '$ ' + context.formattedValue;
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: facultyData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Fees Collected Per Faculty'
+                },
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$ ' + context.formattedValue;
+                        }
                     }
                 }
             }
         }
-    }
-});
+    });
 });
 </script>
 
 
+<!-- Daily Attendance Charts -->
 <script type="text/javascript">
     'use strict';
     $(document).ready(function(){
@@ -1437,7 +1422,7 @@ var myDoughnutChart = new Chart(ctx, {
         });
     @endforeach
 
-    // Program Chart
+    // Program Attendance Chart
     new Chart(document.getElementById('program-attendance-chart').getContext('2d'), {
         type: 'bar',
         data: {
@@ -1451,13 +1436,13 @@ var myDoughnutChart = new Chart(ctx, {
                 legend: { position: 'top' }
             },
             scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'Attendance Count' } },
+                y: { beginAtZero: true, title: { display: true, text: 'Attendance Count' }, ticks: { stepSize: 1 } },
                 x: { title: { display: true, text: 'Day of Month' } }
             }
         }
     });
 
-    // Faculty Chart
+    // Faculty Attendance Chart
     new Chart(document.getElementById('faculty-attendance-chart').getContext('2d'), {
         type: 'bar',
         data: {
@@ -1471,7 +1456,7 @@ var myDoughnutChart = new Chart(ctx, {
                 legend: { position: 'top' }
             },
             scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'Attendance Count' } },
+                y: { beginAtZero: true, title: { display: true, text: 'Attendance Count' }, ticks: { stepSize: 1 } },
                 x: { title: { display: true, text: 'Day of Month' } }
             }
         }

@@ -116,6 +116,7 @@ class StudentController extends Controller
         else{
             $data['selected_section'] = $section = '0';
         }
+
         if(!empty($request->category) || $request->category != null){
             $data['selected_category'] = $category = $request->category;
         }
@@ -170,7 +171,7 @@ class StudentController extends Controller
         $data['sections'] = $sections->orderBy('title', 'asc')->get();}
 
 
-        if(isset($request->faculty) || isset($request->program) || isset($request->session) || isset($request->semester) || isset($request->section) || isset($request->status) || isset($request->student_id)){
+        if(isset($request->faculty) || isset($request->program) || isset($request->session) || isset($request->semester) || isset($request->section) || isset($request->category) || isset($request->status) || isset($request->student_id)){
             // Student Filter
             $students = Student::where('status', '1');
             if($faculty != 0){
@@ -193,8 +194,8 @@ class StudentController extends Controller
                 }
             });
             if(!empty($request->category)){
-                $students->whereHas('category', function($query) use ($request){
-                    $query->where('category_id', $request->category);
+                $students->with('category')->whereHas('category', function($query) use ($category){
+                    $query->where('category_id', $category);
                 });
             }
             if(!empty($request->status)){
