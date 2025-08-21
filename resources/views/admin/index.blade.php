@@ -785,7 +785,26 @@ $(function(){
                     display: true,
                     text: 'Students Per Caste'
             }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const casteIds = @json($studentCasteData->pluck('caste.id'));
+                const casteId = casteIds[index];
+
+                let url = "{{ route('admin.student.index') }}" + "?caste=" + casteId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 
@@ -825,7 +844,26 @@ $(function(){
                     display: true,
                     text: 'Students Per Religion'
             }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const religionIds = @json($studentReligionData->pluck('religion.id'));
+                const religionId = religionIds[index];
+
+                let url = "{{ route('admin.student.index') }}" + "?religion=" + religionId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 });

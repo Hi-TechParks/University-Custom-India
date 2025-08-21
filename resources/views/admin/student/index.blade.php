@@ -51,6 +51,10 @@
                                         {{ __('required_field') }} {{ __('field_category') }}
                                     </div>
                                 </div>
+                                <input type="hidden" name="caste" value="{{ old('caste')}}">
+
+                                <input type="hidden" name="religion" value="{{ old('religion')}}">
+
                                 <div class="form-group col-md-3">
                                     <label for="status">{{ __('field_status') }}</label>
                                     <select class="form-control" name="status" id="status" required>

@@ -171,7 +171,7 @@ class StudentController extends Controller
         $data['sections'] = $sections->orderBy('title', 'asc')->get();}
 
 
-        if(isset($request->faculty) || isset($request->program) || isset($request->session) || isset($request->semester) || isset($request->section) || isset($request->category) || isset($request->status) || isset($request->student_id)){
+        if(isset($request->faculty) || isset($request->program) || isset($request->session) || isset($request->semester) || isset($request->section) || isset($request->category) || isset($request->status) || isset($request->student_id) || isset($request->caste) || isset($request->religion)){
             // Student Filter
             $students = Student::where('status', '1');
             if($faculty != 0){
@@ -196,6 +196,16 @@ class StudentController extends Controller
             if(!empty($request->category)){
                 $students->with('category')->whereHas('category', function($query) use ($category){
                     $query->where('category_id', $category);
+                });
+            }
+            if(!empty($request->caste)){
+                $students->with('caste')->whereHas('caste', function($query) use ($request){
+                    $query->where('caste_id', $request->caste);
+                });
+            }
+            if(!empty($request->religion)){
+                $students->with('religion')->whereHas('religion', function($query) use ($request){
+                    $query->where('religion_id', $request->religion);
                 });
             }
             if(!empty($request->status)){
