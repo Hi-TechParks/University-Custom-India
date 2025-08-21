@@ -608,7 +608,26 @@ $(function(){
                     display: true,
                     text: 'Students Per Category'
             }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const categoryIds = @json($studentCategoryData->pluck('category.id'));
+                const categoryId = categoryIds[index];
+
+                let url = "{{ route('admin.student.index') }}" + "?category=" + categoryId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 
@@ -648,7 +667,26 @@ $(function(){
                     display: true,
                     text: 'Students Per Program'
             }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const programIds = @json($studentProgramData->pluck('program_id'));
+                const programId = programIds[index];
+
+                let url = "{{ route('admin.student.index') }}" + "?program=" + programId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 
@@ -688,7 +726,26 @@ $(function(){
                     display: true,
                     text: 'Students Per Faculty'
             }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const facultyIds = @json($studentFacultyData->pluck('faculty_id'));
+                const facultyId = facultyIds[index];
+
+                let url = "{{ route('admin.student.index') }}" + "?faculty=" + facultyId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 
@@ -817,6 +874,25 @@ $(function(){
                     title: {
                         display: true,
                         text: 'Fees Collected Per Fees Type'
+                    }
+                },
+                onClick: (evt, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+
+                        const categoryIds = @json($fees_type->pluck('id'));
+                        const categoryId = categoryIds[index];
+
+                        let url = "{{ route('admin.fees-student.report') }}" + "?category=" + categoryId;
+
+                        window.location.href = url;
+                    }
+                },
+                onHover: (event, chartElement) => {
+                    if (chartElement.length > 0) {
+                        event.native.target.style.cursor = 'pointer';
+                    } else {
+                        event.native.target.style.cursor = 'default';
                     }
                 }
             }
@@ -1233,7 +1309,26 @@ $(document).ready(function(){
                         }
                     }
                 }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const programFeeIds = @json($programFeeData->pluck('program_id'));
+                const programFeeId = programFeeIds[index];
+
+                let url = "{{ route('admin.fees-student.report') }}" + "?program=" + programFeeId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 
@@ -1345,7 +1440,26 @@ $(document).ready(function(){
                         }
                     }
                 }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const semesterFeeIds = @json($semesterFeeData->pluck('semester_id'));
+                const semesterFeeId = semesterFeeIds[index];
+
+                let url = "{{ route('admin.fees-student.report') }}" + "?semester=" + semesterFeeId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 
@@ -1401,7 +1515,26 @@ $(document).ready(function(){
                         }
                     }
                 }
+            },
+            onClick: (evt, elements) => {
+            if (elements.length > 0) {
+                const index = elements[0].index;
+
+                const facultyFeeIds = @json($facultyFeeData->pluck('faculty_id'));
+                const facultyFeeId = facultyFeeIds[index];
+
+                let url = "{{ route('admin.fees-student.report') }}" + "?faculty=" + facultyFeeId;
+
+                window.location.href = url;
             }
+        },
+        onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
+        }
         }
     });
 });
