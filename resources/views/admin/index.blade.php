@@ -1135,6 +1135,34 @@ $(document).ready(function() {
                         stepSize: 100
                     }
                 }
+            },
+            onClick: (evt, elements) => {
+                if(elements.length > 0){
+                    const index = elements[0].index;
+
+                    const datasetIndex = elements[0].datasetIndex;
+
+                    const facultyIds = @json($facultyFeeData->pluck('faculty_id'));
+
+                    const facultyId = facultyIds[index];
+
+                    let url = '';
+
+                    if(datasetIndex === 0){
+                        url = "{{ route('admin.fees-student.report') }}" + "?faculty=" + facultyId;
+                    } else if(datasetIndex === 1){
+                        url = "{{ route('admin.fees-student.index') }}" + "?faculty=" + facultyId;
+                    }
+
+                    window.location.href = url;
+                }
+            },
+            onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
             }
         }
     });
@@ -1191,6 +1219,34 @@ $(document).ready(function() {
                         stepSize: 100
                     }
                 }
+            },
+            onClick: (evt, elements) => {
+                if(elements.length > 0){
+                    const index = elements[0].index;
+
+                    const datasetIndex = elements[0].datasetIndex;
+
+                    const programIds = @json($programFeeData->pluck('program_id'));
+
+                    const programId = programIds[index];
+
+                    let url = '';
+
+                    if(datasetIndex === 0){
+                        url = "{{ route('admin.fees-student.report') }}" + "?program=" + programId;
+                    } else if(datasetIndex === 1){
+                        url = "{{ route('admin.fees-student.index') }}" + "?program=" + programId;
+                    }
+
+                    window.location.href = url;
+                }
+            },
+            onHover: (event, chartElement) => {
+            if (chartElement.length > 0) {
+                event.native.target.style.cursor = 'pointer';
+            } else {
+                event.native.target.style.cursor = 'default';
+            }
             }
         }
     });
