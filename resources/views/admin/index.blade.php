@@ -18,97 +18,117 @@
         <div class="row">
             <!-- [ bitcoin-wallet section ] start-->
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card bg-c-blue bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('status_pending') }} {{ trans_choice('module_application', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $pending_applications->count() }}</h2>
-                        <i class="fa-solid fa-scroll f-70 text-white"></i>
+                <a href="{{route('admin.application.index')}}">
+                    <div class="card bg-c-blue bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('status_pending') }} {{ trans_choice('module_application', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $pending_applications->count() }}</h2>
+                            <i class="fa-solid fa-scroll f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card bg-c-blue bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2"> {{ __('status_active') }} {{ trans_choice('module_student', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $active_students->count() }}</h2>
-                        <i class="fas fa-user-graduate f-70 text-white"></i>
+                <a href="{{ route('admin.student.index') }}">
+                    <div class="card bg-c-blue bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2"> {{ __('status_active') }} {{ trans_choice('module_student', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $active_students->count() }}</h2>
+                            <i class="fas fa-user-graduate f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card bg-c-blue bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('status_active') }} {{ trans_choice('module_staff', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $active_staffs->count() }}</h2>
-                        <i class="fas fa-user-tag f-70 text-white"></i>
+                <a href="{{ route('admin.user.index') }}">
+                    <div class="card bg-c-blue bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('status_active') }} {{ trans_choice('module_staff', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $active_staffs->count() }}</h2>
+                            <i class="fas fa-user-tag f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card bg-c-blue bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('field_total') }} {{ trans_choice('module_book', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $library_books->count() }}</h2>
-                        <i class="fas fa-book f-70 text-white"></i>
+                <a href="{{ route('admin.book-list.index') }}">
+                    <div class="card bg-c-blue bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('field_total') }} {{ trans_choice('module_book', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $library_books->count() }}</h2>
+                            <i class="fas fa-book f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <!-- [ bitcoin-wallet section ] end-->
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_visitor_log', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $daily_visitors->count() }}</h2>
-                        <i class="fas fa-eye f-70 text-white"></i>
+                <a href="{{ route('admin.visitor.index') }}">
+                    <div class="card theme-bg bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_visitor_log', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $daily_visitors->count() }}</h2>
+                            <i class="fas fa-eye f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_phone_log', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $daily_phone_logs->count() }}</h2>
-                        <i class="fas fa-phone-volume f-70 text-white"></i>
-                    </div>
-                </div>
+                <a href="{{ route('admin.phone-log.index') }}">
+                    <div class="card theme-bg bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_phone_log', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $daily_phone_logs->count() }}</h2>
+                            <i class="fas fa-phone-volume f-70 text-white"></i>
+                        </div>
+                     </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_enquiry', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $daily_enqueries->count() }}</h2>
-                        <i class="fas fa-question f-70 text-white"></i>
+                <a href="{{ route('admin.enquiry.index') }}">
+                    <div class="card theme-bg bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_enquiry', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $daily_enqueries->count() }}</h2>
+                            <i class="fas fa-question f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_postal_exchange', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $daily_postals->count() }}</h2>
-                        <i class="fas fa-exchange-alt f-70 text-white"></i>
+                <a href="{{ route('admin.postal-exchange.index') }}">
+                    <div class="card theme-bg bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('field_daily') }} {{ trans_choice('module_postal_exchange', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $daily_postals->count() }}</h2>
+                            <i class="fas fa-exchange-alt f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg2 bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_faculty', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $total_faculty->count() }}</h2>
-                        <i class="fas fa-sitemap f-70 text-white"></i>
+                <a href="{{ route('admin.faculty.index') }}">
+                    <div class="card theme-bg2 bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_faculty', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $total_faculty->count() }}</h2>
+                            <i class="fas fa-sitemap f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6 col-md-6 col-xl-3">
-                <div class="card theme-bg2 bitcoin-wallet">
-                    <div class="card-block">
-                        <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_program', 2) }}</h5>
-                        <h2 class="text-white mb-2 f-w-300">{{ $total_program->count() }}</h2>
-                        <i class="fas fa-graduation-cap f-70 text-white"></i>
+                <a href="{{ route('admin.program.index') }}">
+                    <div class="card theme-bg2 bitcoin-wallet">
+                        <div class="card-block">
+                            <h5 class="text-white mb-2">{{ __('field_no_of') }} {{ trans_choice('module_program', 2) }}</h5>
+                            <h2 class="text-white mb-2 f-w-300">{{ $total_program->count() }}</h2>
+                            <i class="fas fa-graduation-cap f-70 text-white"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 
