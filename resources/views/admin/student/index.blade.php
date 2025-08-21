@@ -40,13 +40,11 @@
 
                                 <div class="form-group col-md-3">
                                     <label for="category">{{ __('field_category') }}</label>
-                                    <select class="form-control category" name="category" id="category">
+                                    <select class="form-control" name="category" id="category">
                                         <option value="0">{{ __('all') }}</option>
-                                        @if(isset($categories))
-                                        @foreach( $categories->sortBy('title') as $category )
+                                        @foreach( $categories as $category )
                                         <option value="{{ $category->id }}" @if( $selected_category == $category->id) selected @endif>{{ $category->title }}</option>
                                         @endforeach
-                                        @endif
                                     </select>
 
                                     <div class="invalid-feedback">
